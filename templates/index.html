@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Job Listings</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Job Title</th>
+                <th>Site</th>
+                <th>Type</th>
+                <th>Formatted DateTime</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in jobListing %}
+            <tr>
+                <td>{{ job[0] }}</td>
+                <td><a href="{{ job[2] }}" target="_blank">{{ job[1] }}</a></td>
+                <td>{{ job[3] }}</td>
+                <td>{{ job[4] }}</td>
+                <td>{{ job[5] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

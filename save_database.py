@@ -35,4 +35,34 @@ def create_table():
             connection.close()
             print("Połączenie zostało zamknięte.")
 
-create_table()
+def saveToDB(data):
+   try:
+        connection  = pymysql.connect(
+            host='127.0.0.1',
+            user=config_data.user,
+            password=config_data.password,
+            database='mydatabase',
+            port= 3306
+        )
+        cursor = connection .cursor()
+        
+        InserQuery = """INSERT INTO JobListing (job_title, job_link, site, type, formatted_dataTime) VALUES (%s, %s, %s, %s, %s)"""
+        for job, link, site, type_, formatted_dataTime in data:
+            cursor.execute(InserQuery, (job, link, site, type_, formatted_dataTime))
+        
+        connection.commit()
+        
+        
+   except pymysql.MySQLError as error:
+        print(f"Error: {error}")
+        
+        
+   finally:
+       if connection: 
+           cursor.close()
+           connection.close()
+           print("Połączenie zostało zamknięte.")
+
+saveToDB(scraped_data)
+
+#create_table()
