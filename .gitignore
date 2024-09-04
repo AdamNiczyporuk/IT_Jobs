@@ -12,6 +12,7 @@ __pycache__/
 
 # Ignoruj pliki konfiguracyjne
 config_data.py
+docker-compose.yml
 
 # Ignoruj pliki logów
 *.log
@@ -23,3 +24,4 @@ config_data.py
 # Ignoruj pliki specyficzne dla IDE
 .vscode/
 .idea/
+
