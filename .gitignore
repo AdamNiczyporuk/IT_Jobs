@@ -1,0 +1,25 @@
+# Ignoruj pliki i katalogi specyficzne dla systemu operacyjnego
+.DS_Store
+Thumbs.db
+
+# Ignoruj katalogi wirtualnych środowisk
+venv/
+env/
+
+# Ignoruj pliki kompilacji
+*.pyc
+__pycache__/
+
+# Ignoruj pliki konfiguracyjne
+config_data.py
+
+# Ignoruj pliki logów
+*.log
+
+# Ignoruj pliki tymczasowe
+*.tmp
+*.swp
+
+# Ignoruj pliki specyficzne dla IDE
+.vscode/
+.idea/
