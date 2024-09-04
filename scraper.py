@@ -37,6 +37,9 @@ def scrape():
                 job = 'Brak tytułu'  
             href=element['href']
             if href.startswith('/pl/job/'):  # Filtruj tylko ścieżki wewnętrzne
+                dataTime=datetime.datetime.now()
+                formatted_dataTime = dataTime.strftime("%Y-%m-%d %H:%M:%S")
+                
                 full_url = f"https://nofluffjobs.com{href}"  # Uzupełnij URL
                 writer.writerow([job,full_url,site,type,formatted_dataTime])  # Zapisz pełny link jako jedną linię
                 result.append([job,full_url,site,type,formatted_dataTime])
