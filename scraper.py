@@ -46,7 +46,7 @@ def scrape():
 
     return result
             
-scraped_data = scrape()
+
             
 
  

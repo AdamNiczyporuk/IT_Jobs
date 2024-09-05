@@ -1,9 +1,36 @@
 import pymysql
-from scraper  import scraped_data
-import config_data 
+import config_data
+import  scraper
+def get_dataDB ():
+    connection  = pymysql.connect(
+            host='127.0.0.1',
+            user=config_data.user,
+            password=config_data.password,
+            database='mydatabase',
+            port= 3306
+        )
+    try:
+        cursor = connection .cursor()
+        query="SELECT * FROM mydatabase.JobListing"
+        cursor.execute(query)   
+        result = cursor.fetchall()
+        print(f"Retrieved {len(result)} records")
+        return result
+    except pymysql.MySQLError as error:
+        print(f"Error: {error}")
+        return []
+    finally:
+        cursor.close()
+        connection.close()
+ 
+
+
+
+
+
 
 #function to Create Database table
-def create_table():
+def create_tableDB():
 
     try:
         connection  = pymysql.connect(
@@ -62,7 +89,4 @@ def saveToDB(data):
            cursor.close()
            connection.close()
            print("Połączenie zostało zamknięte.")
-
-saveToDB(scraped_data)
-
-#create_table()
+data = scraper.scrape()
