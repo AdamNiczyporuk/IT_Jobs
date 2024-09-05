@@ -5,9 +5,10 @@ import website
 
 
 def main():
-    # scrapeData = scraper.scrape()
-    # ManageDB.saveToDB(scrapeData)
-    website.app.run(debug=True)
+    scrapeData = scraper.scrape()
+    #ManageDB.create_tableDB()
+    ManageDB.saveToDB(scrapeData)
+    # website.app.run(debug=True)
     
 if __name__ == '__main__':
     main()

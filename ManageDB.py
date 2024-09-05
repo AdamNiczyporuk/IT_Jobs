@@ -45,7 +45,7 @@ def create_tableDB():
                 CREATE TABLE IF NOT EXISTS JobListing (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 job_title VARCHAR(255),
-                job_link VARCHAR(255),
+                job_link VARCHAR(255) UNIQUE,
                 site VARCHAR(255),
                 type VARCHAR(255),
                 formatted_dataTime DATETIME );
@@ -73,9 +73,16 @@ def saveToDB(data):
         )
         cursor = connection .cursor()
         
+        
         InserQuery = """INSERT INTO JobListing (job_title, job_link, site, type, formatted_dataTime) VALUES (%s, %s, %s, %s, %s)"""
-        for job, link, site, type_, formatted_dataTime in data:
-            cursor.execute(InserQuery, (job, link, site, type_, formatted_dataTime))
+        SelectQuery="""SELECT COUNT(*) From JobListing WHERE job_link=%s"""
+        
+        
+        for job, link, site, type, formatted_dataTime in data:
+            cursor.execute(SelectQuery, (link,))
+            result = cursor.fetchone()
+            if result[0] == 0:
+                cursor.execute(InserQuery, (job, link, site, type, formatted_dataTime))
         
         connection.commit()
         
@@ -89,4 +96,3 @@ def saveToDB(data):
            cursor.close()
            connection.close()
            print("Połączenie zostało zamknięte.")
-data = scraper.scrape()
