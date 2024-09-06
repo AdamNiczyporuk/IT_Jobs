@@ -1,0 +1,3 @@
+[submodule "basic-scrapy-project"]
+	path = basic-scrapy-project
+	url = https://github.com/python-scrapy-playbook/basic-scrapy-project.git
