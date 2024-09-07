@@ -6,7 +6,9 @@ import pandas as pd
 tittle = "RPA"
 location="Poland"
 
-url="https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=RPA&location=Poland&start=25"
+
+num_page=25
+url=f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=RPA&location=Poland&start={num_page}"
 
 
 response = requests.get(url)
@@ -30,6 +32,10 @@ for job_id in id_list:
     # print(job_response.status_code)
     job_soup = BeautifulSoup(job_response.text,"html.parser")
     job_post= {}
+    try:   
+        job_post["job_title"] = job_soup.find("h2", {"class":"top-card-layout__title font-sans text-lg papabear:text-xl font-bold leading-open text-color-text mb-0 topcard__title"}).text.strip()
+    except:  
+        job_post["job_title"] = None
     try:
         job_post["company_name"] = job_soup.find("a", {"class":"topcard__org-name-link topcard__flavor--black-link"}).text.strip()
     except:
@@ -47,5 +53,9 @@ for job_id in id_list:
     
 print(job_list)
 
+jobs_df= pd.DataFrame(job_list)
 
 
+print(jobs_df)
+
+jobs_df.to_csv("jobs.csv", index=False)
