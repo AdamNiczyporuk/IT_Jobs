@@ -10,6 +10,7 @@ def main():
     # print(scrapeData)
     db.create_tableDB("LinkedInDB")
     Data = LkScrap.linkedin_scraper()
+    print(Data)
     db.saveToDB(Data,"LinkedInDB")
     # website.app.run(debug=True)
     
