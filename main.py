@@ -8,10 +8,10 @@ import likedinScraper as LkScrap
 def main():
     # scrapeData = scraper.scrape()
     # print(scrapeData)
-    db.create_tableDB("LinkedInDB")
+    # db.create_tableDB("LinkedInDB")
     Data = LkScrap.linkedin_scraper()
-    print(Data)
-    db.saveToDB(Data,"LinkedInDB")
+    # print(Data)
+    # db.saveToDB(Data,"LinkedInDB")
     # website.app.run(debug=True)
     
 if __name__ == '__main__':
