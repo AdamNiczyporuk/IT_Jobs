@@ -1,6 +1,5 @@
 import requests 
 from bs4 import BeautifulSoup
-import random 
 import pandas as pd 
 
 tittle = "RPA"
@@ -32,6 +31,9 @@ for job_id in id_list:
     # print(job_response.status_code)
     job_soup = BeautifulSoup(job_response.text,"html.parser")
     job_post= {}
+    
+    job_post["job_link"] = job_url
+    
     try:   
         job_post["job_title"] = job_soup.find("h2", {"class":"top-card-layout__title font-sans text-lg papabear:text-xl font-bold leading-open text-color-text mb-0 topcard__title"}).text.strip()
     except:  
@@ -50,11 +52,8 @@ for job_id in id_list:
         job_post["num_applicatns"]  = None
     job_list.append(job_post)
     
-    
-print(job_list)
 
 jobs_df= pd.DataFrame(job_list)
-
 
 print(jobs_df)
 

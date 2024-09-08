@@ -30,24 +30,24 @@ def get_dataDB ():
 
 
 #function to Create Database table
-def create_tableDB():
+def create_tableDB(nameDB):
 
     try:
         connection  = pymysql.connect(
             host='127.0.0.1',
             user=config_data.user,
             password=config_data.password,
-            database='mydatabase',
+            database=nameDB,
             port= 3306
         )
         cursor = connection .cursor()
         createTableQuery = """
-                CREATE TABLE IF NOT EXISTS JobListing (
+                CREATE TABLE IF NOT EXISTS LinkedInJobs (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 job_title VARCHAR(255),
+                Company_name VARCHAR(255),
+                time_posted VARCHAR(255),
                 job_link VARCHAR(255) UNIQUE,
-                site VARCHAR(255),
-                type VARCHAR(255),
                 formatted_dataTime DATETIME );
                 """
                 
@@ -74,7 +74,7 @@ def saveToDB(data):
         cursor = connection .cursor()
         
         
-        InserQuery = """INSERT INTO JobListing (job_title, job_link, site, type, formatted_dataTime) VALUES (%s, %s, %s, %s, %s)"""
+        InserQuery = """INSERT INTO LinkedInDB (job_title, Company_name, time_posted, job_link, formatted_dataTime) VALUES (%s, %s, %s, %s, %s)"""
         SelectQuery="""SELECT COUNT(*) From JobListing WHERE job_link=%s"""
         
         
