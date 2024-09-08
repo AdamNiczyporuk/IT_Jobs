@@ -50,6 +50,7 @@ def create_tableDB(nameDB):
                 job_title VARCHAR(255),
                 Company_name VARCHAR(255),
                 time_posted VARCHAR(255),
+                num_applicatns VARCHAR(255),
                 job_link VARCHAR(255) ,
                 formatted_dataTime DATETIME );
                 """
@@ -77,7 +78,7 @@ def saveToDB(data,nameDB):
         cursor = connection .cursor()
         
         
-        InserQuery = """INSERT INTO LinkedInJobs (job_id,job_title, Company_name, time_posted, job_link, formatted_dataTime) VALUES (%s,%s, %s, %s, %s, %s)"""
+        InserQuery = """INSERT INTO LinkedInJobs (job_id,job_title, Company_name, time_posted, job_link,num_applicatns, formatted_dataTime) VALUES (%s,%s,%s,%s, %s, %s, %s)"""
         SelectQuery="""SELECT COUNT(*) From LinkedInJobs WHERE job_id=%s"""
         
         
@@ -87,7 +88,8 @@ def saveToDB(data,nameDB):
             Company_name = job.get('company_name')
             time_posted = job.get('time_posted')
             job_link = job.get('job_link')
-            
+            num_applicatns= job.get('num_applicatns')
+           
             dataTime=datetime.datetime.now()
             formatted_dataTime = dataTime.strftime("%Y-%m-%d %H:%M:%S")
             
@@ -95,7 +97,7 @@ def saveToDB(data,nameDB):
             result = cursor.fetchone()
             
             if result[0] == 0:
-                cursor.execute(InserQuery, (job_id,job_title, Company_name, time_posted, job_link, formatted_dataTime))
+                cursor.execute(InserQuery, (job_id,job_title, Company_name, time_posted, job_link,num_applicatns, formatted_dataTime))
         
         connection.commit()
         
