@@ -43,8 +43,9 @@ def scrape():
                 full_url = f"https://nofluffjobs.com{href}"  # Uzupełnij URL
                 writer.writerow([job,full_url,site,type,formatted_dataTime])  # Zapisz pełny link jako jedną linię
                 result.append([job,full_url,site,type,formatted_dataTime])
-
     return result
+
+
             
 
             

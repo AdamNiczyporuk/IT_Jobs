@@ -1,13 +1,16 @@
 import config_data as config
-import ManageDB 
+import ManageDB as db
 import scraper
+import likedinScraper as LkScrap
 # import website
 
 
 def main():
     # scrapeData = scraper.scrape()
-    #ManageDB.create_tableDB()
-    ManageDB.create_tableDB("LinkedInDB")
+    # print(scrapeData)
+    db.create_tableDB("LinkedInDB")
+    Data = LkScrap.linkedin_scraper()
+    db.saveToDB(Data,"LinkedInDB")
     # website.app.run(debug=True)
     
 if __name__ == '__main__':

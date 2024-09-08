@@ -1,6 +1,8 @@
 import pymysql
 import config_data
 import  scraper
+import datetime
+
 def get_dataDB ():
     connection  = pymysql.connect(
             host='127.0.0.1',
@@ -44,10 +46,11 @@ def create_tableDB(nameDB):
         createTableQuery = """
                 CREATE TABLE IF NOT EXISTS LinkedInJobs (
                 id INT AUTO_INCREMENT PRIMARY KEY,
+                job_id VARCHAR(255) UNIQUE,
                 job_title VARCHAR(255),
                 Company_name VARCHAR(255),
                 time_posted VARCHAR(255),
-                job_link VARCHAR(255) UNIQUE,
+                job_link VARCHAR(255) ,
                 formatted_dataTime DATETIME );
                 """
                 
@@ -62,27 +65,37 @@ def create_tableDB(nameDB):
             connection.close()
             print("Połączenie zostało zamknięte.")
 
-def saveToDB(data):
+def saveToDB(data,nameDB):
    try:
         connection  = pymysql.connect(
             host='127.0.0.1',
             user=config_data.user,
             password=config_data.password,
-            database='mydatabase',
+            database=nameDB,
             port= 3306
         )
         cursor = connection .cursor()
         
         
-        InserQuery = """INSERT INTO LinkedInDB (job_title, Company_name, time_posted, job_link, formatted_dataTime) VALUES (%s, %s, %s, %s, %s)"""
-        SelectQuery="""SELECT COUNT(*) From JobListing WHERE job_link=%s"""
+        InserQuery = """INSERT INTO LinkedInJobs (job_id,job_title, Company_name, time_posted, job_link, formatted_dataTime) VALUES (%s,%s, %s, %s, %s, %s)"""
+        SelectQuery="""SELECT COUNT(*) From LinkedInJobs WHERE job_id=%s"""
         
         
-        for job, link, site, type, formatted_dataTime in data:
-            cursor.execute(SelectQuery, (link,))
+        for job in data:
+            job_id = job.get('job_id')
+            job_title = job.get('job_title')
+            Company_name = job.get('company_name')
+            time_posted = job.get('time_posted')
+            job_link = job.get('job_link')
+            
+            dataTime=datetime.datetime.now()
+            formatted_dataTime = dataTime.strftime("%Y-%m-%d %H:%M:%S")
+            
+            cursor.execute(SelectQuery, (job_id,))
             result = cursor.fetchone()
+            
             if result[0] == 0:
-                cursor.execute(InserQuery, (job, link, site, type, formatted_dataTime))
+                cursor.execute(InserQuery, (job_id,job_title, Company_name, time_posted, job_link, formatted_dataTime))
         
         connection.commit()
         
