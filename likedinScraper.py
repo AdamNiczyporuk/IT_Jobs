@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd 
 import time
+import random
 
 def linkedin_scraper(tittle="RPA", location="Poland", how_pages=3):
     
@@ -33,17 +34,18 @@ def linkedin_scraper(tittle="RPA", location="Poland", how_pages=3):
         
         while True:
             job_response = requests.get(job_url)
-            
             print(job_response.status_code)
+            
             if job_response.status_code == 200:
                 Checking=0
                 break
             
             if  job_response.status_code == 429:
-                    print(f"Coun Check {Checking} this {job_id} time sleep {time_sleep}")
-                    time.sleep(time_sleep) 
-                    Checking +=1
-                    time_sleep +=2
+                time_sleep = random.uniform(1, 5)
+                print(f"Coun Check {Checking} this {job_id} time sleep {time_sleep}")
+                time.sleep(time_sleep)
+                Checking +=1
+                   
                     
                        
                    
