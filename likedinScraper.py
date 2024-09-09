@@ -1,7 +1,7 @@
 import requests 
 from bs4 import BeautifulSoup
 import pandas as pd 
-
+import time
 
 def linkedin_scraper(tittle="RPA", location="Poland", how_pages=3):
     
@@ -29,7 +29,12 @@ def linkedin_scraper(tittle="RPA", location="Poland", how_pages=3):
     for job_id in id_list:
         job_url=f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_id}"
         job_response = requests.get(job_url)
-        # print(job_response.status_code)
+        print(job_response.status_code)
+        if job_response ==429: 
+            print("To many requests")
+            time.sleep(10)
+            continue
+        
         job_soup = BeautifulSoup(job_response.text,"html.parser")
         job_post= {}
         
