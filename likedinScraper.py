@@ -9,6 +9,8 @@ def linkedin_scraper(tittle="RPA", location="Poland", how_pages=3):
     list_page_jobs = []
     id_list =[]
     job_list = []
+    Checking=0 
+    time_sleep=1
     while num_page <= how_pages*25:
         url=f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={tittle}&location={location}&start={num_page}"
         response = requests.get(url)
@@ -28,12 +30,24 @@ def linkedin_scraper(tittle="RPA", location="Poland", how_pages=3):
     
     for job_id in id_list:
         job_url=f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_id}"
-        job_response = requests.get(job_url)
-        print(job_response.status_code)
-        if job_response ==429: 
-            print("To many requests")
-            time.sleep(10)
-            continue
+        
+        while True:
+            job_response = requests.get(job_url)
+            
+            print(job_response.status_code)
+            if job_response.status_code == 200:
+                Checking=0
+                break
+            
+            if  job_response.status_code == 429:
+                    print(f"Coun Check {Checking} this {job_id} time sleep {time_sleep}")
+                    time.sleep(time_sleep) 
+                    Checking +=1
+                    time_sleep +=2
+                    
+                       
+                   
+       
         
         job_soup = BeautifulSoup(job_response.text,"html.parser")
         job_post= {}
@@ -64,7 +78,7 @@ def linkedin_scraper(tittle="RPA", location="Poland", how_pages=3):
     # print(BeautifulSoup(list_data, 'html.parser'))
 
     job_df = pd.DataFrame(job_list)
-    job_df.to_csv("linkedin_jobs.csv")
+    job_df.to_csv("linkedin_jobs.csv",index=False)
   
     return job_list
 
