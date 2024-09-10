@@ -3,6 +3,13 @@ from bs4 import BeautifulSoup
 import pandas as pd 
 import time
 import random
+import re 
+
+def extract_number(text):
+    match= re.search(r"\d+", text)
+    if match:
+        return int(match.group())
+    return None
 
 def linkedin_scraper(tittle="RPA", location="Poland", how_pages=0):
     
@@ -71,12 +78,12 @@ def linkedin_scraper(tittle="RPA", location="Poland", how_pages=0):
         try:
             num_applicants_span = job_soup.find("span", {"class": "num-applicants__caption topcard__flavor--metadata topcard__flavor--bullet"})
             if num_applicants_span and num_applicants_span.text.strip():
-                job_post["num_applicatns"] = num_applicants_span.text.strip()
+                job_post["num_applicatns"] = extract_number(num_applicants_span.text.strip())
                 print(job_post["num_applicatns"])
             else:
                 num_applicants_figcaption = job_soup.find("figcaption", {"class": "num-applicants__caption"})
                 if num_applicants_figcaption and num_applicants_figcaption.text.strip():
-                    job_post["num_applicatns"] = num_applicants_figcaption.text.strip()
+                    job_post["num_applicatns"] = extract_number(num_applicants_figcaption.text.strip()) 
                     print(job_post["num_applicatns"])
                 else:
                     job_post["num_applicatns"] = None
