@@ -11,6 +11,13 @@ def extract_number(text):
         return int(match.group())
     return None
 
+def likedIn_numOffert_scraper(url): 
+    response= requests.get(url)
+    text_page= response.text
+    parse_data = BeautifulSoup(text_page, 'html.parser')
+    num_offerts= parse_data.find("span", {"class": "results-context-header__job-count"}).text
+    return num_offerts
+
 def linkedin_scraper(tittle="RPA", location="Poland", how_pages=0):
     
     num_page = 0
@@ -19,6 +26,7 @@ def linkedin_scraper(tittle="RPA", location="Poland", how_pages=0):
     job_list = []
     Checking=0 
     time_sleep=1
+    
     while num_page <= how_pages*25:
         url=f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={tittle}&location={location}&start={num_page}"
         response = requests.get(url)
@@ -105,6 +113,6 @@ def linkedin_scraper(tittle="RPA", location="Poland", how_pages=0):
 
 
 
-
-linkedin_scraper()
+print(likedIn_numOffert_scraper("https://www.linkedin.com/jobs/search?keywords=RPA&location=Poland&trk=public_jobs_jobs-search-bar_search-submit&pageNum=0&position=1"))
+# linkedin_scraper()
         
