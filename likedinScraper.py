@@ -26,6 +26,9 @@ def linkedin_scraper(tittle="RPA", location="Poland", how_pages=0):
     job_list = []
     Checking=0 
     time_sleep=1
+    all_offerts= likedIn_numOffert_scraper(f"https://www.linkedin.com/jobs/search?keywords={tittle}&location={location}&trk=public_jobs_jobs-search-bar_search-submit&pageNum=0&position=1")
+    
+   
     
     while num_page <= how_pages*25:
         url=f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={tittle}&location={location}&start={num_page}"
