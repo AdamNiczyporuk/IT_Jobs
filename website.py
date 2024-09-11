@@ -4,6 +4,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def index ():
-    data = ManageDB.get_data()
+    data = ManageDB.get_dataDB("LinkedInDB")
     return render_template('index.html', jobListing=data)
 

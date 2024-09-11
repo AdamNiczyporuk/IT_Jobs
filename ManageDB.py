@@ -13,7 +13,7 @@ def get_dataDB (nameDB):
         )
     try:
         cursor = connection .cursor()
-        query=f"SELECT * FROM {nameDB}.JobListing"
+        query=f"SELECT * FROM {nameDB}.LinkedInJobs"
         cursor.execute(query)   
         result = cursor.fetchall()
         print(f"Retrieved {len(result)} records")

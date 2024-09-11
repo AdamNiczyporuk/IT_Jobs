@@ -10,9 +10,11 @@ def main():
     # print(scrapeData)
     # db.create_tableDB("LinkedInDB")
     Data = LkScrap.linkedin_scraper()
+    # 
     # print(Data)
     db.saveToDB(Data,"LinkedInDB")
-    # website.app.run(debug=True)
+    # print(db.get_dataDB("LinkedInDB"))
+    website.app.run(debug=True)
     
 if __name__ == '__main__':
     main()
