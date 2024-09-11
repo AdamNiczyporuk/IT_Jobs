@@ -3,7 +3,7 @@ import config_data
 import  scraper
 import datetime
 
-def get_dataDB ():
+def get_dataDB (nameDB):
     connection  = pymysql.connect(
             host='127.0.0.1',
             user=config_data.user,
@@ -13,7 +13,7 @@ def get_dataDB ():
         )
     try:
         cursor = connection .cursor()
-        query="SELECT * FROM mydatabase.JobListing"
+        query=f"SELECT * FROM {nameDB}.JobListing"
         cursor.execute(query)   
         result = cursor.fetchall()
         print(f"Retrieved {len(result)} records")
