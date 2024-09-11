@@ -18,7 +18,7 @@ def likedIn_numOffert_scraper(url):
     num_offerts= parse_data.find("span", {"class": "results-context-header__job-count"}).text
     return num_offerts
 
-def linkedin_scraper(tittle="RPA", location="Poland", how_pages=0):
+def linkedin_scraper(tittle="RPA", location="Poland"):
     
     num_page = 0
     list_page_jobs = []
@@ -26,17 +26,26 @@ def linkedin_scraper(tittle="RPA", location="Poland", how_pages=0):
     job_list = []
     Checking=0 
     time_sleep=1
-    all_offerts= likedIn_numOffert_scraper(f"https://www.linkedin.com/jobs/search?keywords={tittle}&location={location}&trk=public_jobs_jobs-search-bar_search-submit&pageNum=0&position=1")
-    
-   
+    index =0 
+    all_offerts= int(likedIn_numOffert_scraper(f"https://www.linkedin.com/jobs/search?keywords={tittle}&location={location}&trk=public_jobs_jobs-search-bar_search-submit&pageNum=0&position=1"))
+    print(all_offerts)
+    if all_offerts%25 == 0:
+        how_pages= all_offerts//25
+        print(how_pages)
+    else:
+        how_pages= all_offerts//25 + 1
+        print(how_pages)
+ 
+        
     
     while num_page <= how_pages*25:
+        print(f"Page {num_page}")
         url=f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={tittle}&location={location}&start={num_page}"
         response = requests.get(url)
         list_page_jobs.append(response.text)
         num_page += 25
         
-    print(len(list_page_jobs))
+    
     for list_data in list_page_jobs:
         list_data= BeautifulSoup(list_data, 'html.parser')
         page_jobs= list_data.find_all("li")
@@ -44,8 +53,9 @@ def linkedin_scraper(tittle="RPA", location="Poland", how_pages=0):
         for job in page_jobs: 
             base_card_div =job.find("div",{"class": "base-card"})
             job_id= base_card_div.get("data-entity-urn").split(":")[3]
-            print(job_id)
+            # print(job_id)
             id_list.append(job_id)
+            index +=1
     
     for job_id in id_list:
         job_url=f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_id}"
@@ -90,12 +100,12 @@ def linkedin_scraper(tittle="RPA", location="Poland", how_pages=0):
             num_applicants_span = job_soup.find("span", {"class": "num-applicants__caption topcard__flavor--metadata topcard__flavor--bullet"})
             if num_applicants_span and num_applicants_span.text.strip():
                 job_post["num_applicatns"] = extract_number(num_applicants_span.text.strip())
-                print(job_post["num_applicatns"])
+                # print(job_post["num_applicatns"])
             else:
                 num_applicants_figcaption = job_soup.find("figcaption", {"class": "num-applicants__caption"})
                 if num_applicants_figcaption and num_applicants_figcaption.text.strip():
                     job_post["num_applicatns"] = extract_number(num_applicants_figcaption.text.strip()) 
-                    print(job_post["num_applicatns"])
+                    # print(job_post["num_applicatns"])
                 else:
                     job_post["num_applicatns"] = None
         except Exception as e:
@@ -107,15 +117,14 @@ def linkedin_scraper(tittle="RPA", location="Poland", how_pages=0):
            
 
 
-    # print(BeautifulSoup(list_data, 'html.parser'))
+    
 
     job_df = pd.DataFrame(job_list)
     job_df.to_csv("linkedin_jobs.csv",index=False)
-  
+    print(index)
     return job_list
 
 
 
-print(likedIn_numOffert_scraper("https://www.linkedin.com/jobs/search?keywords=RPA&location=Poland&trk=public_jobs_jobs-search-bar_search-submit&pageNum=0&position=1"))
-# linkedin_scraper()
+
         
