@@ -23,4 +23,6 @@ th {
 .center-button {
     padding: 20px 40px; /* Zwiększenie paddingu */
     font-size: 18px; /* Zwiększenie rozmiaru czcionki */
+    width: auto; /* Opcjonalnie, ustawienie szerokości */
+    height: auto; /* Opcjonalnie, ustawienie wysokości */
 }
