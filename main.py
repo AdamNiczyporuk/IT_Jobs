@@ -9,10 +9,10 @@ def main():
     # scrapeData = scraper.scrape()
     # print(scrapeData)
     # db.create_tableDB("LinkedInDB")
-    Data = LkScrap.linkedin_scraper()
+    # Data = LkScrap.linkedin_scraper()
     # 
     # print(Data)
-    db.saveToDB(Data,"LinkedInDB")
+    # db.saveToDB(Data,"LinkedInDB")
     # print(db.get_dataDB("LinkedInDB"))
     website.app.run(debug=True)
     
