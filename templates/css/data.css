@@ -1,0 +1,29 @@
+/* styles.css */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+th {
+    background-color: #f2f2f2;
+}
+#searchBar {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+#searchButton {
+    padding: 8px;
+    margin-left: 10px;
+}
+.search-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.center-text {
+    text-align: center;
+}
