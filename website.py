@@ -7,3 +7,5 @@ def index ():
     data = ManageDB.get_dataDB("LinkedInDB")
     return render_template('index.html', jobListing=data)
 
+if __name__ == '__main__':
+    app.run(debug=True)
