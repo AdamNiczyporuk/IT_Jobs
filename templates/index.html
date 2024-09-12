@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='data.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Listings</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='data.css') }}">
-    
+  
 </head>
 <body>
     <h1 style="text-align: center;" >Job Listings</h1>
     <input type="text" id="searchBar" placeholder="Search for job title...">
-    <button  id="searchButton" onclick="filterJobs()">Search</button>
+    <div class="container">
+     <button clas="center-button"  onclick="filterJobs()">Search</button>
+    </div>
     <table>
         <thead>
             <tr>
