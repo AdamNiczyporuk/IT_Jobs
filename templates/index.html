@@ -9,9 +9,12 @@
 </head>
 <body>
     <h1 style="text-align: center;" >Job Listings</h1>
-    <input type="text" id="searchBar" placeholder="Search for job title...">
-    <div class="container">
-     <button class="center-button"  onclick="searchJobs()">Search</button>
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search for job title...">
+        <input type="number" id="minApplicants" placeholder="Min applicants">
+        <input type="number" id="maxApplicants" placeholder="Max applicants">
+        <input type="text" id="timePosted" placeholder="Time posted (e.g., '1 day ago')">
+        <button class="center-button" onclick="searchJobs()">Search</button>
     </div>
     <table>
         <thead>
