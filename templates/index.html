@@ -9,12 +9,20 @@
 </head>
 <body>
     <h1 style="text-align: center;" >Job Listings</h1>
-    <div class="search-container">
-        <input type="text" id="searchBar" placeholder="Search for job title...">
-        <input type="number" id="minApplicants" placeholder="Min applicants">
-        <input type="number" id="maxApplicants" placeholder="Max applicants">
-        <input type="text" id="timePosted" placeholder="Time posted (e.g., '1 day ago')">
-        <button class="center-button" onclick="searchJobs()">Search</button>
+    <input type="text" id="searchBar" placeholder="Search for job title...">
+    <div class="container">
+     <button class="center-button"  onclick="applyFilters()">Search</button>
+     <button class="center-button" onclick="openPopup()">Filter</button>
+    </div>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Filter Jobs</h2>
+            <input type="number" id="minApplicants" placeholder="Min applicants">
+            <input type="number" id="maxApplicants" placeholder="Max applicants">
+            <input type="text" id="timePosted" placeholder="Time posted (e.g., '1 day ago')">
+            <button class="center-button" onclick="applyFilters()">Apply Filters</button>
+        </div>
     </div>
     <table>
         <thead>
@@ -37,27 +45,46 @@
         </tbody>
     </table>
     <script>
-        function searchJobs() {
+
+        function openPopup(){ 
+            document.getElementById ('popup').style.display='block ';
+        }
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+        function applyFilters() {
             const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+            const minApplicants = document.getElementById('minApplicants').value;
+            const maxApplicants = document.getElementById('maxApplicants').value;
+            const timePosted = document.getElementById('timePosted').value.toLowerCase();
+            filterJobs(searchTerm, minApplicants, maxApplicants, timePosted);
+            closePopup(); // Zamknij popup po zastosowaniu filtrów
+        }
+
+        function filterJobs(searchTerm, minApplicants, maxApplicants, timePosted) {
             const jobTable = document.getElementById('jobTable');
             const rows = jobTable.getElementsByTagName('tr');
             for (let i = 0; i < rows.length; i++) {
                 const cells = rows[i].getElementsByTagName('td');
-                let match = false;
+                let match = true;
                 for (let j = 0; j < cells.length; j++) {
                     if (cells[j]) {
                         const cellText = cells[j].textContent || cells[j].innerText;
-                        if (cellText.toLowerCase().indexOf(searchTerm) > -1) {
-                            match = true;
-                            break;
+                        if (j == 1 && cellText.toLowerCase().indexOf(searchTerm) === -1) {
+                            match = false;
+                        }
+                        if (j == 2) {
+                            const applicants = parseInt(cellText);
+                            if ((minApplicants && applicants < minApplicants) || (maxApplicants && applicants > maxApplicants)) {
+                                match = false;
+                            }
+                        }
+                        if (j == 3 && cellText.toLowerCase().indexOf(timePosted) === -1) {
+                            match = false;
                         }
                     }
                 }
-                if (match) {
-                    rows[i].style.display = '';
-                } else {
-                    rows[i].style.display = 'none';
-                }
+                rows[i].style.display = match ? '' : 'none';
             }
         }
     </script>
