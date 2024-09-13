@@ -8,11 +8,11 @@
   
 </head>
 <body>
-    <h1 style="text-align: center;" >Job Listings</h1>
+    <h1 style="text-align: center;" >Job Listing</h1>
     <input type="text" id="searchBar" placeholder="Search for job title...">
-    <div class="container">
-     <button class="center-button"  onclick="applyFilters()">Search</button>
-     <button class="center-button" onclick="openPopup()">Filter</button>
+    <div class="buttons-container">
+        <button class="center-button"  onclick="applyFilters()">Search</button>
+        <button class="center-button" onclick="openPopup()">Filter</button>
     </div>
     <div id="popup" class="popup">
         <div class="popup-content">
@@ -37,7 +37,7 @@
             {% for job in jobListing %}
             <tr>
                 <td>{{ job[3] }}</td>
-                <td><a href="{{ job[6] }}" target="_blank">{{ job[2] }}</a></td>
+                <td class="centered"><a href="{{ job[6] }}" target="_blank">{{ job[2] }}</a></td>
                 <td>{{ job[5] }}</td>
                 <td>{{ job[4] }}</td>
             </tr>
