@@ -37,7 +37,7 @@
         <tbody id="jobTable">
             {% for job in jobListing %}
             <tr>
-                <td class="checkbox-cell"><input type="checkbox" class="job-checkbox"></td>
+                <td class="checkbox-cell"><input type="checkbox" class="job-checkbox" id="checkbox-{{job[0]}}"></td>
                 <td>{{ job[3] }}</td>
                 <td class="centered"><a href="{{ job[6] }}" target="_blank">{{ job[2] }}</a></td>
                 <td>{{ job[5] }}</td>
@@ -47,7 +47,29 @@
         </tbody>
     </table>
     <script>
+        // Lisiner for clicking on checkbox
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const checkboxes = document.querySelectorAll('.job-checkbox');
+    
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', (event) => {
+                    collectCheckedData(event.target);
+                });
+            });
+        });
 
+        function collectCheckedData(checkbox) {
+            if (checkbox.checked) {
+                const row = checkbox.closest('tr');
+                const jobData = {
+                    companyName: row.cells[1].innerText,
+                    jobTitle: row.cells[2].innerText,
+                    numberOfApplicants: row.cells[3].innerText,
+                    timePosted: row.cells[4].innerText
+                };
+                console.log(jobData);
+            }
+        }
         function openPopup(){ 
             document.getElementById ('popup').style.display='block ';
         }
