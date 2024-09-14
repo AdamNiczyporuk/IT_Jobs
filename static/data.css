@@ -30,6 +30,15 @@ th {
     justify-content: center; /* Wyśrodkowanie w poziomie */
 
 }
+.checkbox-cell {
+    text-align: center; /* Wyśrodkowanie w poziomie */
+    vertical-align: middle; /* Wyśrodkowanie w pionie */
+}
+
+.job-checkbox {
+    margin: 0; /* Usuń domyślne marginesy */
+}
+
 .center-button {
     padding: 20px 40px;
     margin: 0  10px;
