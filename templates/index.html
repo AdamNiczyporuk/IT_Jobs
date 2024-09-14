@@ -57,19 +57,15 @@
                 });
             });
         });
-
+    
         function collectCheckedData(checkbox) {
             if (checkbox.checked) {
                 const row = checkbox.closest('tr');
-                const jobData = {
-                    companyName: row.cells[1].innerText,
-                    jobTitle: row.cells[2].innerText,
-                    numberOfApplicants: row.cells[3].innerText,
-                    timePosted: row.cells[4].innerText
-                };
-                console.log(jobData);
+                const jobLink = row.querySelector('a').href;
+                console.log(jobLink); // Wyświetl zebrany link w konsoli
             }
         }
+        
         function openPopup(){ 
             document.getElementById ('popup').style.display='block ';
         }
