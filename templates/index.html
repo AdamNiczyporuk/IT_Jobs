@@ -22,11 +22,14 @@
     <div id="popup" class="popup">
         <div class="popup-content">
             <span class="close" onclick="closePopup()">&times;</span>
-            <h2>Filter Jobs</h2>
+            <h2 class="centered">Filter Jobs</h2>
+            <input type="text" id="city" placeholder="City">
             <input type="number" id="minApplicants" placeholder="Min applicants">
             <input type="number" id="maxApplicants" placeholder="Max applicants">
             <input type="text" id="timePosted" placeholder="Time posted (e.g., '1 day ago')">
-            <button class="center-button" onclick="applyFilters()">Apply Filters</button>
+            <div class="button-container">
+                <button class="center-button" onclick="applyFilters()">Apply Filters</button>
+            </div>
         </div>
     </div>
     <table>
@@ -78,14 +81,15 @@
         }
         function applyFilters() {
             const searchTerm = document.getElementById('searchBar').value.toLowerCase();
-            const minApplicants = document.getElementById('minApplicants').value;
-            const maxApplicants = document.getElementById('maxApplicants').value;
+            const minApplicants = parseInt(document.getElementById('minApplicants').value) || 0;
+            const maxApplicants = parseInt(document.getElementById('maxApplicants').value) || Infinity;
             const timePosted = document.getElementById('timePosted').value.toLowerCase();
-            filterJobs(searchTerm, minApplicants, maxApplicants, timePosted);
-            closePopup(); // Zamknij popup po zastosowaniu filtrów
+            const city = document.getElementById('city').value.toLowerCase();
+    
+            filterJobs(searchTerm, minApplicants, maxApplicants, timePosted, city);
         }
 
-        function filterJobs(searchTerm, minApplicants, maxApplicants, timePosted) {
+         function filterJobs(searchTerm, minApplicants, maxApplicants, timePosted, city) {
             const jobTable = document.getElementById('jobTable');
             const rows = jobTable.getElementsByTagName('tr');
             for (let i = 0; i < rows.length; i++) {
@@ -97,13 +101,16 @@
                         if (j == 1 && cellText.toLowerCase().indexOf(searchTerm) === -1) {
                             match = false;
                         }
-                        if (j == 2) {
+                        if (j == 4) {
                             const applicants = parseInt(cellText);
                             if ((minApplicants && applicants < minApplicants) || (maxApplicants && applicants > maxApplicants)) {
                                 match = false;
                             }
                         }
-                        if (j == 3 && cellText.toLowerCase().indexOf(timePosted) === -1) {
+                        if (j == 5 && cellText.toLowerCase().indexOf(timePosted) === -1) {
+                            match = false;
+                        }
+                        if (j == 3 && cellText.toLowerCase().indexOf(city) === -1) {
                             match = false;
                         }
                     }
