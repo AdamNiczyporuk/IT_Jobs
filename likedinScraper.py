@@ -84,6 +84,11 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
         
         job_post["job_link"] = f"https://www.linkedin.com/jobs/search?keywords={tittle}&location={location}&pageNum=0&position=28&currentJobId={job_id}"
         job_post["job_id"] = job_id
+        
+        try:
+            job_post["city"] = job_soup.find("span", {"class":"topcard__flavor topcard__flavor--bullet"}).text.strip()
+        except:
+             job_post["city"] = None
         try:   
             job_post["job_title"] = job_soup.find("h2", {"class":"top-card-layout__title font-sans text-lg papabear:text-xl font-bold leading-open text-color-text mb-0 topcard__title"}).text.strip()
         except:  

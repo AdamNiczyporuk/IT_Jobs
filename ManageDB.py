@@ -78,7 +78,7 @@ def saveToDB(data,nameDB):
         cursor = connection .cursor()
         
         
-        InserQuery = """INSERT INTO LinkedInJobs (job_id,job_title, Company_name, time_posted, job_link,num_applicatns, formatted_dataTime) VALUES (%s,%s,%s,%s, %s, %s, %s)"""
+        InserQuery = """INSERT INTO LinkedInJobs (job_id,job_title, company_name,City, time_posted, job_link,num_applicatns, formatted_dataTime) VALUES (%s,%s,%s,%s,%s, %s, %s, %s)"""
         SelectQuery="""SELECT COUNT(*) From LinkedInJobs WHERE job_id=%s"""
         
         
