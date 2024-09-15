@@ -14,6 +14,11 @@
         <button class="center-button"  onclick="applyFilters()">Search</button>
         <button class="center-button" onclick="openPopup()">Filter</button>
     </div>
+
+    <div class="buttons-container">
+        <button class="center-button" id="collectDataButton" onclick="collectCheckedData()">Collect Data</button>
+    </div>
+
     <div id="popup" class="popup">
         <div class="popup-content">
             <span class="close" onclick="closePopup()">&times;</span>
@@ -47,23 +52,20 @@
         </tbody>
     </table>
     <script>
-        // Lisiner for clicking on checkbox
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const checkboxes = document.querySelectorAll('.job-checkbox');
     
+        
+    
+       function collectCheckedData() {
+        const checkboxes = document.querySelectorAll('.job-checkbox:checked');
+        const checkedLinks = [];
+
             checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', (event) => {
-                    collectCheckedData(event.target);
-                });
-            });
-        });
-    
-        function collectCheckedData(checkbox) {
-            if (checkbox.checked) {
                 const row = checkbox.closest('tr');
                 const jobLink = row.querySelector('a').href;
-                console.log(jobLink); // Wyświetl zebrany link w konsoli
-            }
+                checkedLinks.push(jobLink);
+             });
+
+            console.log(checkedLinks); // Wyświetl zebrane linki w konsoli
         }
         
         function openPopup(){ 
