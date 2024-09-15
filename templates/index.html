@@ -35,6 +35,7 @@
                 <th>Selected</th>
                 <th>Company Name</th>
                 <th>Job Tittle</th>
+                <th>City</th>
                 <th>Number of applicants</th>
                 <th>Time Posted</th>
             </tr>
@@ -42,11 +43,12 @@
         <tbody id="jobTable">
             {% for job in jobListing %}
             <tr>
-                <td class="checkbox-cell"><input type="checkbox" class="job-checkbox" id="checkbox-{{job[0]}}"></td>
-                <td>{{ job[3] }}</td>
-                <td class="centered"><a href="{{ job[6] }}" target="_blank">{{ job[2] }}</a></td>
-                <td>{{ job[5] }}</td>
-                <td>{{ job[4] }}</td>
+                <td id ="Selected"class="checkbox-cell"><input type="checkbox" class="job-checkbox" id="checkbox-{{job[0]}}"></td>
+                <td id="Company_Name">{{ job[3] }}</td>
+                <td id="Job_TitleWithLink" class="centered"><a href="{{ job[7] }}" target="_blank">{{ job[2] }}</a></td>
+                <td id="City" class="centered">{{ job[4] }}</td>
+                <td id="Number_of_Applicants" class="centered">{{ job[6] }}</td>
+                <td id="Time_Posted">{{ job[5] }}</td>
             </tr>
             {% endfor %}
         </tbody>

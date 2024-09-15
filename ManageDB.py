@@ -48,7 +48,8 @@ def create_tableDB(nameDB):
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 job_id VARCHAR(255) UNIQUE,
                 job_title VARCHAR(255),
-                Company_name VARCHAR(255),
+                company_name VARCHAR(255),
+                city VARCHAR(255),
                 time_posted VARCHAR(255),
                 num_applicatns VARCHAR(255),
                 job_link VARCHAR(255) ,
@@ -86,6 +87,7 @@ def saveToDB(data,nameDB):
             job_id = job.get('job_id')
             job_title = job.get('job_title')
             Company_name = job.get('company_name')
+            city = job.get('city')
             time_posted = job.get('time_posted')
             job_link = job.get('job_link')
             num_applicatns= job.get('num_applicatns')
@@ -97,7 +99,7 @@ def saveToDB(data,nameDB):
             result = cursor.fetchone()
             
             if result[0] == 0:
-                cursor.execute(InserQuery, (job_id,job_title, Company_name, time_posted, job_link,num_applicatns, formatted_dataTime))
+                cursor.execute(InserQuery, (job_id,job_title, Company_name,city, time_posted, job_link,num_applicatns, formatted_dataTime))
         
         connection.commit()
         
