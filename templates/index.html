@@ -11,12 +11,14 @@
 </head>
 <body>
     <h1 style="text-align: center;">Job Listing</h1>
-    <input type="text" id="searchBar" placeholder="Search for job title...">
-    <div class="buttons-container">
-        <button class="center-button" id="applyFiltersButton">Search</button>
-        <button class="center-button" id="openPopupButton">Filter</button>
-        <button class="center-button" id="collectDataButton">Collect Data</button>
-        <button class = "center-button" id="resetfilter">Reset filters</button>
+    <div class="d-flex justify-content-center mb-3">
+        <input class="form-control rounded-pill w-75 btn-lg" type="text" id="searchBar" placeholder="Search for job title...">
+    </div>
+    <div class="buttons-container mb-3">
+        <button class="btn btn-dark mr-2 btn-lg" id="applyFiltersButton">Search</button>
+        <button class="btn btn-dark mr-2 btn-lg" id="openPopupButton">Filter</button>
+        <button class="btn btn-dark mr-2 btn-lg" id="collectDataButton">Collect Data</button>
+        <button class = "btn btn-dark btn-lg" id="resetfilter">Reset filters</button>
         
     </div>
     <div id="popup" class="popup">
@@ -32,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-4">
         <table class="table table-dark table-striped mt-4" id="jobTable">
             <thead>
                 <tr>
@@ -40,7 +42,7 @@
                     <th class="text-center">Company Name</th>
                     <th class="text-center">Job Title</th>
                     <th class="text-center">City</th>
-                    <th class="text-center">Number of applicants</th>
+                    <th class="text-center">Applicants</th>
                     <th class="text-center">Time Posted</th>
                 </tr>
             </thead>
