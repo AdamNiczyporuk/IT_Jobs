@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='data.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Listings</title>
-    <!-- Bootstrap -->
+    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='data.css') }}">
   
 </head>
-<body>
+</body>
 
     <h1 style="text-align: center;" >Job Listing</h1>
     <input type="text" id="searchBar" placeholder="Search for job title...">
@@ -35,30 +37,33 @@
             </div>
         </div>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Selected</th>
-                <th>Company Name</th>
-                <th>Job Tittle</th>
-                <th>City</th>
-                <th>Number of applicants</th>
-                <th>Time Posted</th>
-            </tr>
-        </thead>
-        <tbody id="jobTable">
-            {% for job in jobListing %}
-            <tr>
-                <td id ="Selected"class="checkbox-cell"><input type="checkbox" class="job-checkbox" id="checkbox-{{job[0]}}"></td>
-                <td id="Company_Name">{{ job[3] }}</td>
-                <td id="Job_TitleWithLink" class="centered"><a href="{{ job[7] }}" target="_blank">{{ job[2] }}</a></td>
-                <td id="City" class="centered">{{ job[4] }}</td>
-                <td id="Number_of_Applicants" class="centered">{{ job[6] }}</td>
-                <td id="Time_Posted">{{ job[5] }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="container-fluid mt-5">
+        <table class="table table-dark table-striped mt-4" id="jobTable">
+            <thead>
+                <tr>
+                    <th>Selected</th>
+                    <th>Company Name</th>
+                    <th>Job Tittle</th>
+                    <th>City</th>
+                    <th>Number of applicants</th>
+                    <th>Time Posted</th>
+                </tr>
+            </thead>
+            <tbody id="jobTable">
+                {% for job in jobListing %}
+                <tr>
+                    <td id ="Selected"class="checkbox-cell"><input type="checkbox" class="job-checkbox" id="checkbox-{{job[0]}}"></td>
+                    <td id="Company_Name">{{ job[3] }}</td>
+                    <td id="Job_TitleWithLink" class="centered"><a href="{{ job[7] }}" target="_blank">{{ job[2] }}</a></td>
+                    <td id="City" class="centered">{{ job[4] }}</td>
+                    <td id="Number_of_Applicants" class="centered">{{ job[6] }}</td>
+                    <td id="Time_Posted">{{ job[5] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
     <script>
     
         
