@@ -7,33 +7,28 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-
     <link rel="stylesheet" href="{{ url_for('static', filename='data.css') }}">
-  
 </head>
-</body>
-
-    <h1 style="text-align: center;" >Job Listing</h1>
+<body>
+    <h1 style="text-align: center;">Job Listing</h1>
     <input type="text" id="searchBar" placeholder="Search for job title...">
     <div class="buttons-container">
-        <button class="center-button"  onclick="applyFilters()">Search</button>
-        <button class="center-button" onclick="openPopup()">Filter</button>
+        <button class="center-button" id="applyFiltersButton">Search</button>
+        <button class="center-button" id="openPopupButton">Filter</button>
+        <button class="center-button" id="collectDataButton">Collect Data</button>
+        <button class = "center-button" id="resetfilter">Reset filters</button>
+        
     </div>
-
-    <div class="buttons-container">
-        <button class="center-button" id="collectDataButton" onclick="collectCheckedData()">Collect Data</button>
-    </div>
-
     <div id="popup" class="popup">
         <div class="popup-content">
-            <span class="close" onclick="closePopup()">&times;</span>
+            <span class="close">&times;</span>
             <h2 class="centered">Filter Jobs</h2>
             <input type="text" id="city" placeholder="City">
             <input type="number" id="minApplicants" placeholder="Min applicants">
             <input type="number" id="maxApplicants" placeholder="Max applicants">
             <input type="text" id="timePosted" placeholder="Time posted (e.g., '1 day ago')">
             <div class="button-container">
-                <button class="center-button" onclick="applyFilters()">Apply Filters</button>
+                <button class="center-button" id="applyPopupFiltersButton">Apply Filters</button>
             </div>
         </div>
     </div>
@@ -43,7 +38,7 @@
                 <tr>
                     <th class="text-center">Selected</th>
                     <th class="text-center">Company Name</th>
-                    <th class="text-center">Job Tittle</th>
+                    <th class="text-center">Job Title</th>
                     <th class="text-center">City</th>
                     <th class="text-center">Number of applicants</th>
                     <th class="text-center">Time Posted</th>
@@ -52,7 +47,7 @@
             <tbody id="jobTable">
                 {% for job in jobListing %}
                 <tr>
-                    <td id ="Selected"class="checkbox-cell"><input type="checkbox" class="job-checkbox" id="checkbox-{{job[0]}}"></td>
+                    <td id="Selected" class="checkbox-cell"><input type="checkbox" class="job-checkbox" id="checkbox-{{job[0]}}"></td>
                     <td id="Company_Name">{{ job[3] }}</td>
                     <td id="Job_TitleWithLink" class="centered"><a href="{{ job[7] }}" target="_blank">{{ job[2] }}</a></td>
                     <td id="City" class="centered">{{ job[4] }}</td>
@@ -63,73 +58,86 @@
             </tbody>
         </table>
     </div>
-</div>
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-    
-        
-    
-       function collectCheckedData() {
-        const checkboxes = document.querySelectorAll('.job-checkbox:checked');
-        const checkedLinks = [];
+        $(document).ready(function() {
+            $('#collectDataButton').click(function() {
+                const checkedLinks = [];
+                $('.job-checkbox:checked').each(function() {
+                    const jobLink = $(this).closest('tr').find('a').attr('href');
+                    checkedLinks.push(jobLink);
+                });
+                alert('Zebrane linki: ' + checkedLinks.join(', ')); // Wyświetl zebrane linki w okienku alert
+            });
 
-            checkboxes.forEach(checkbox => {
-                const row = checkbox.closest('tr');
-                const jobLink = row.querySelector('a').href;
-                checkedLinks.push(jobLink);
-             });
+            $('#openPopupButton').click(function() {
+                $('#popup').fadeIn();
+            });
 
-            console.log(checkedLinks); // Wyświetl zebrane linki w konsoli
-        }
-        
-        function openPopup(){ 
-            document.getElementById ('popup').style.display='block ';
-        }
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
-        function applyFilters() {
-            const searchTerm = document.getElementById('searchBar').value.toLowerCase();
-            const minApplicants = parseInt(document.getElementById('minApplicants').value) || 0;
-            const maxApplicants = parseInt(document.getElementById('maxApplicants').value) || Infinity;
-            const timePosted = document.getElementById('timePosted').value.toLowerCase();
-            const city = document.getElementById('city').value.toLowerCase();
-    
-            filterJobs(searchTerm, minApplicants, maxApplicants, timePosted, city);
-        }
+            $('.close').click(function() {
+                $('#popup').fadeOut();
+            });
 
-         function filterJobs(searchTerm, minApplicants, maxApplicants, timePosted, city) {
-            const jobTable = document.getElementById('jobTable');
-            const rows = jobTable.getElementsByTagName('tr');
-            for (let i = 0; i < rows.length; i++) {
-                const cells = rows[i].getElementsByTagName('td');
-                let match = true;
-                for (let j = 0; j < cells.length; j++) {
-                    if (cells[j]) {
-                        const cellText = cells[j].textContent || cells[j].innerText;
-                        if (j == 1 && cellText.toLowerCase().indexOf(searchTerm) === -1) {
-                            match = false;
-                        }
-                        if (j == 4) {
-                            const applicants = parseInt(cellText);
-                            if ((minApplicants && applicants < minApplicants) || (maxApplicants && applicants > maxApplicants)) {
+            $('#applyFiltersButton').click(function() {
+                applyFilters();
+            });
+
+            $('#applyPopupFiltersButton').click(function() {
+                applyFilters();
+            });
+
+           $('#resetfilter').click(function() {
+                $('#searchBar').val('');
+                $('#minApplicants').val('');
+                $('#maxApplicants').val('');
+                $('#timePosted').val('');
+                $('#city').val('');
+                filterJobs('', 0, Infinity, '', '');
+            });
+
+            function applyFilters() {
+                const searchTerm = $('#searchBar').val().toLowerCase();
+                const minApplicants = parseInt($('#minApplicants').val()) || 0;
+                const maxApplicants = parseInt($('#maxApplicants').val()) || Infinity;
+                const timePosted = $('#timePosted').val().toLowerCase();
+                const city = $('#city').val().toLowerCase();
+
+                filterJobs(searchTerm, minApplicants, maxApplicants, timePosted, city);
+            }
+
+            function filterJobs(searchTerm, minApplicants, maxApplicants, timePosted, city) {
+                const jobTable = document.getElementById('jobTable');
+                const rows = jobTable.getElementsByTagName('tr');
+                for (let i = 0; i < rows.length; i++) {
+                    const cells = rows[i].getElementsByTagName('td');
+                    let match = true;
+                    for (let j = 0; j < cells.length; j++) {
+                        if (cells[j]) {
+                            const cellText = cells[j].textContent || cells[j].innerText;
+                            if (j == 2 && cellText.toLowerCase().indexOf(searchTerm) === -1) { // Zmiana na kolumnę "Job Title"
+                                match = false;
+                            }
+                            if (j == 4) {
+                                const applicants = parseInt(cellText);
+                                if ((minApplicants && applicants < minApplicants) || (maxApplicants && applicants > maxApplicants)) {
+                                    match = false;
+                                }
+                            }
+                            if (j == 5 && cellText.toLowerCase().indexOf(timePosted) === -1) {
+                                match = false;
+                            }
+                            if (j == 3 && cellText.toLowerCase().indexOf(city) === -1) {
                                 match = false;
                             }
                         }
-                        if (j == 5 && cellText.toLowerCase().indexOf(timePosted) === -1) {
-                            match = false;
-                        }
-                        if (j == 3 && cellText.toLowerCase().indexOf(city) === -1) {
-                            match = false;
-                        }
                     }
+                    rows[i].style.display = match ? '' : 'none';
                 }
-                rows[i].style.display = match ? '' : 'none';
             }
-        }
+        });
     </script>
-    <!-- Bootstrap JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
