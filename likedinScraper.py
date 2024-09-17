@@ -29,13 +29,13 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
     Checking=0 
     time_sleep=1
     index =0 
-    all_offerts= int(likedIn_numOffert_scraper(f"https://www.linkedin.com/jobs/search?keywords={tittle}&location={location}&trk=public_jobs_jobs-search-bar_search-submit&pageNum=0&position=1"))
+    all_offerts= int(likedIn_numOffert_scraper(f"https://www.linkedin.com/jobs/search?keywords={tittle}&location={location}&pageNum=0&position=1"))
     print(all_offerts)
     if all_offerts%25 == 0:
         how_pages= all_offerts//25
         print(how_pages)
     else:
-        how_pages= all_offerts//25 + 1
+        how_pages= all_offerts//25
         print(how_pages)
  
         
@@ -43,7 +43,7 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
     while num_page <= how_pages*25:
         print(f"Page {num_page}")
         url=f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={tittle}&location={location}&start={num_page}"
-        response = proxy.make_request_proxy(url)
+        response = requests.get(url)
         list_page_jobs.append(response.text)
         num_page += 25
         
@@ -54,6 +54,7 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
         
         for job in page_jobs: 
             base_card_div =job.find("div",{"class": "base-card"})
+            print(base_card_div)
             job_id= base_card_div.get("data-entity-urn").split(":")[3]
             # print(job_id)
             id_list.append(job_id)
@@ -63,7 +64,7 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
         job_url=f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_id}"
         
         while True:
-            job_response = proxy.make_request_proxy(job_url)
+            job_response = requests.get(job_url)
             print(job_response.status_code)
             
             if job_response.status_code == 200:

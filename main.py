@@ -3,15 +3,17 @@ import ManageDB as db
 import scraper
 import likedinScraper as LkScrap
 import website
+import proxy
 
 
 def main():
-    scrapeData = scraper.scrape()
+    # scrapeData = scraper.scrape()
     # print(scrapeData)
     # db.create_tableDBScraper("mydatabase")
-    db.saveToDBScraper(scrapeData,"mydatabase")
+    # db.saveToDBScraper(scrapeData,"mydatabase")
     # db.create_tableDB("LinkedInDB")
-    # Data = LkScrap.linkedin_scraper()
+    # proxy.start_tor()
+    Data = LkScrap.linkedin_scraper()
 
     # print(Data)
     # db.saveToDB(Data,"LinkedInDB")
