@@ -167,20 +167,21 @@ def saveToDBScraper(data,nameDB):
         
         
         for job in data:
-            job_title= job.get('job')
+            job_title = job.get('job')
             job_link = job.get('url')
             site = job.get('site')
             type = job.get('type')
 
-            dataTime=datetime.datetime.now()
+            # Generowanie czasu wewnątrz pętli
+            dataTime = datetime.datetime.now()
             formatted_dataTime = dataTime.strftime("%Y-%m-%d %H:%M:%S")
-            
+
             cursor.execute(SelectQuery, (job_link,))
             result = cursor.fetchone()
-            
+
             if result[0] == 0:
-                cursor.execute(InserQuery, (job_title,job_link, site,type,formatted_dataTime))
-        
+                cursor.execute(InserQuery, (job_title, job_link, site, type, formatted_dataTime))
+            
         connection.commit()
         
         

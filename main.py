@@ -7,7 +7,7 @@ import website
 
 def main():
     scrapeData = scraper.scrape()
-    print(scrapeData)
+    # print(scrapeData)
     # db.create_tableDBScraper("mydatabase")
     db.saveToDBScraper(scrapeData,"mydatabase")
     # db.create_tableDB("LinkedInDB")
