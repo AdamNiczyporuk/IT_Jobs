@@ -1,6 +1,6 @@
 import random 
 import requests
-
+import time
 
 agents =[ 
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
@@ -13,7 +13,29 @@ agents =[
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.59"
          ]
 
-def get_with_agent(url): 
-    headers = {'User-Agent': random.choice(agents)}
-    return requests.get(url, headers=headers)
+# Increase the number of retries and add exponential backoff
+MAX_RETRIES = 5
+BASE_DELAY = 2
 
+
+def get_with_agent(url, retry_count=0):
+    headers = {
+        'User-Agent': random.choice(agents),
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Referer': 'https://www.linkedin.com/',
+        'DNT': '1'  # Do Not Track
+    }
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()
+        return response
+    except requests.exceptions.RequestException as e:
+        if retry_count < MAX_RETRIES:
+            delay = BASE_DELAY ** retry_count + random.uniform(0, 1)
+            print(f"Error {response.status_code if 'response' in locals() else e}. Retrying in {delay:.2f} seconds...")
+            time.sleep(delay)
+            return get_with_agent(url, retry_count + 1)
+        else:
+            print(f"Max retries reached. Skipping URL: {url}")
+            return None
