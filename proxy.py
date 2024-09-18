@@ -10,13 +10,10 @@ import random
 
 proxy_list=[
     'http://77.83.246.25:80',
-    'http://85.193.95.16:36745',
     'http://77.237.28.191:8080',
     'http://85.193.197.137:8081',
     'http://145.239.86.159:8888',
     'http://81.210.88.97:82',
-    
-    
 ]
 
 def get_random_proxy():
@@ -41,16 +38,18 @@ def renew_ip(session):
 def make_request_proxy(url):
     session = requests.Session()
     # Tor Proxies 
-    session.proxies = {
-        'http': 'socks5h://127.0.0.1:9050',
-        'https': 'socks5h://127.0.0.1:9050'
-    }
+    # session.proxies = {
+    #     'http': 'socks5h://127.0.0.1:9050',
+    #     'https': 'socks5h://127.0.0.1:9050'
+    # }
     
     proxy=get_random_proxy()
+    print(proxy)
     session.proxies = {
         'http': proxy,
         'https': proxy
     }
+    
     headers = {'User-Agent': ag.get_random_agent()}
     
     renew_ip(session)
