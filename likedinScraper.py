@@ -35,7 +35,7 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
         how_pages= all_offerts//25
         print(how_pages)
     else:
-        how_pages= all_offerts//25
+        how_pages= all_offerts//25 +1
         print(how_pages)
  
         
@@ -54,11 +54,13 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
         
         for job in page_jobs: 
             base_card_div =job.find("div",{"class": "base-card"})
-            print(base_card_div)
-            job_id= base_card_div.get("data-entity-urn").split(":")[3]
-            # print(job_id)
-            id_list.append(job_id)
-            index +=1
+            if base_card_div is not None:
+                job_id= base_card_div.get("data-entity-urn").split(":")[3]
+                # print(job_id)
+                id_list.append(job_id)
+                index +=1
+            else:
+                continue
     
     for job_id in id_list:
         job_url=f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_id}"
