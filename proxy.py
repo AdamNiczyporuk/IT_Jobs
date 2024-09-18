@@ -4,6 +4,23 @@ import config_data as config
 import requests
 import subprocess
 import time 
+import agents as ag
+import random
+
+
+proxy_list=[
+    'http://77.83.246.25:80',
+    'http://85.193.95.16:36745',
+    'http://77.237.28.191:8080',
+    'http://85.193.197.137:8081',
+    'http://145.239.86.159:8888',
+    'http://81.210.88.97:82',
+    
+    
+]
+
+def get_random_proxy():
+    return random.choice(proxy_list)
 
 def start_tor():
     subprocess.Popen(['D:\\Program Files\\Tor Browser\\Browser\\TorBrowser\\Tor\\tor.exe', '-f', 'D:\\Program Files\\Tor Browser\\Browser\\TorBrowser\\Data\\Tor\\torrc'])
@@ -19,33 +36,31 @@ def renew_ip(session):
         controller.signal(Signal.NEWNYM)
         print("renew ip")
 
-        
+    
         
 def make_request_proxy(url):
     session = requests.Session()
+    # Tor Proxies 
     session.proxies = {
         'http': 'socks5h://127.0.0.1:9050',
         'https': 'socks5h://127.0.0.1:9050'
     }
     
-    old_ip = get_current_ip(session)
-    new_ip = old_ip
+    proxy=get_random_proxy()
+    session.proxies = {
+        'http': proxy,
+        'https': proxy
+    }
+    headers = {'User-Agent': ag.get_random_agent()}
     
-    while new_ip == old_ip:
-        # Sprawdź IP przed zmianą
-        old_ip = get_current_ip(session)
-        print(f"Current IP before request: {old_ip}")
-        
-        renew_ip(session)
-        
-        # Sprawdź IP po zmianie
-        new_ip = get_current_ip(session)
-        print(f"Current IP after request: {new_ip}")
+    renew_ip(session)
     
-
-    
-    response = session.get(url)
-    return response
+    try:
+        response = session.get(url, headers=headers, timeout=30)
+        return response
+    except requests.RequestException as e:
+        print(f"Request failed: {e}")
+        return None
 
 if __name__ == "__main__":
     # start_tor()

@@ -4,3 +4,4 @@ ua = UserAgent()
 
 def get_random_agent(): 
     return ua.random
+
