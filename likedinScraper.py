@@ -15,7 +15,8 @@ def extract_number(text):
     return None
 
 def likedIn_numOffert_scraper(url): 
-    response=  ag.get_with_agent(url)
+    headers = {'User-Agent': ag.get_random_agent()}
+    response = requests.get(url, headers=headers)
     text_page= response.text
     parse_data = BeautifulSoup(text_page, 'html.parser')
     num_offerts= parse_data.find("span", {"class": "results-context-header__job-count"})
@@ -47,7 +48,8 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
     while num_page <= how_pages*25:
         print(f"Page {num_page}")
         url=f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={tittle}&location={location}&start={num_page}"
-        response = ag.get_with_agent(url)
+        headers = {'User-Agent': ag.get_random_agent()}
+        response = requests.get(url, headers=headers)
         list_page_jobs.append(response.text)
         num_page += 25
         
@@ -70,7 +72,8 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
         job_url=f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_id}"
         
         while True:
-            job_response =  ag.get_with_agent(job_url)
+            headers = {'User-Agent': ag.get_random_agent()}
+            job_response = requests.get(job_url, headers=headers)
             print(job_response.status_code)
             
             if job_response.status_code == 200:
