@@ -9,15 +9,12 @@ import random
 
 
 proxy_list=[
-    'http://77.83.246.25:80',
-    'http://77.237.28.191:8080',
-    'http://85.193.197.137:8081',
-    'http://145.239.86.159:8888',
-    'http://81.210.88.97:82',
+    'socks5h://93.159.188.154',
 ]
 
 def get_random_proxy():
     return random.choice(proxy_list)
+
 
 def start_tor():
     subprocess.Popen(['D:\\Program Files\\Tor Browser\\Browser\\TorBrowser\\Tor\\tor.exe', '-f', 'D:\\Program Files\\Tor Browser\\Browser\\TorBrowser\\Data\\Tor\\torrc'])
@@ -52,10 +49,10 @@ def make_request_proxy(url):
     
     headers = {'User-Agent': ag.get_random_agent()}
     
-    renew_ip(session)
+    # renew_ip(session)
     
     try:
-        response = session.get(url, headers=headers, timeout=30)
+        response = session.get(url, headers=headers, timeout=60)
         return response
     except requests.RequestException as e:
         print(f"Request failed: {e}")
