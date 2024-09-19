@@ -49,7 +49,7 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
         print(f"Page {num_page}")
         url=f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={tittle}&location={location}&start={num_page}"
         # headers = {'User-Agent': ag.get_random_agent()}
-        response = requests.get(url)
+        response = proxy.make_request_proxy(url)
         list_page_jobs.append(response.text)
         num_page += 25
         
@@ -73,7 +73,7 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
         
         while True:
             # headers = {'User-Agent': ag.get_random_agent()}
-            job_response =  requests.get(job_url)
+            job_response =  proxy.make_request_proxy(job_url)
             print(job_response.status_code)
             
             if job_response.status_code == 200:

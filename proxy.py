@@ -9,8 +9,19 @@ import random
 
 
 proxy_list=[
-    'http://77.83.246.25:80',
     'http://80.13.39.65:80',
+    'http://211.73.79.129:80',
+    'http://3.67.179.153:3128',
+    'http://85.215.64.49:80',
+    'http://188.152.75.218:80',
+    'http://91.134.253.17:80',
+    'http://23.88.51.178:8888',
+    'http://164.92.164.95:80',
+    'http://37.26.196.36:8081',
+    'http://43.132.219.102:80',
+    'http://102.213.146.206:8080',
+    'http://51.91.109.83:80',
+    'http://8.213.22.253:3128',
     'http://211.73.79.129:80',
 ]
 
@@ -46,7 +57,7 @@ def make_request_proxy(url):
     print(proxy)
     session.proxies = {
         'http': proxy,
-        'https': proxy
+        # 'https': proxy
     }
     
     headers = {'User-Agent': ag.get_random_agent()}
@@ -64,7 +75,7 @@ if __name__ == "__main__":
     # start_tor()
     tittle = "RPA"
     location = "Poland"
-    url = f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={tittle}&location={location}&start=0"
+    url = f"http://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={tittle}&location={location}&start=0"
     response = make_request_proxy(url)  
     print(response.status_code)
     print(response.text)
