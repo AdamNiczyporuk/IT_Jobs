@@ -135,9 +135,9 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
 
 
     
-
-    job_df = pd.DataFrame(job_list)
-    job_df.to_csv("linkedin_jobs.csv",index=False)
+    # Writting Data to Excel  
+    # job_df = pd.DataFrame(job_list)
+    # job_df.to_csv("linkedin_jobs.csv",index=False)
     print(index)
     return job_list
 

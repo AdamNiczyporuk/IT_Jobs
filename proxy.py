@@ -9,7 +9,9 @@ import random
 
 
 proxy_list=[
-    'socks5h://93.159.188.154',
+    'http://77.83.246.25:80',
+    'http://80.13.39.65:80',
+    'http://211.73.79.129:80',
 ]
 
 def get_random_proxy():
