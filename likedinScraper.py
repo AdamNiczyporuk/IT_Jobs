@@ -15,11 +15,11 @@ def extract_number(text):
     return None
 
 def likedIn_numOffert_scraper(url): 
-    # headers = {'User-Agent': ag.get_random_agent()}
     response = requests.get(url)
     text_page= response.text
     parse_data = BeautifulSoup(text_page, 'html.parser')
     num_offerts= parse_data.find("span", {"class": "results-context-header__job-count"})
+    print(num_offerts)
     if num_offerts is None:
         likedIn_numOffert_scraper(url)
     else:
@@ -34,8 +34,14 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
     Checking=0 
     time_sleep=1
     index =0 
-    all_offerts= int(likedIn_numOffert_scraper(f"https://www.linkedin.com/jobs/search?keywords={tittle}&location={location}&pageNum=0&position=1"))
-    print(all_offerts)
+    
+    all_offerts= likedIn_numOffert_scraper(f"https://www.linkedin.com/jobs/search?keywords={tittle}&location={location}&pageNum=0&position=1")
+    while all_offerts is None:
+        all_offerts= likedIn_numOffert_scraper(f"https://www.linkedin.com/jobs/search?keywords={tittle}&location={location}&pageNum=0&position=1")
+        print(all_offerts)
+        
+    all_offerts =int(all_offerts)
+    
     if all_offerts%25 == 0:
         how_pages= all_offerts//25
         print(how_pages)

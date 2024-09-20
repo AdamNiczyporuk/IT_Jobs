@@ -21,6 +21,7 @@ def saveToDBLikedin(data,nameDB):
         InserQuery = """INSERT INTO LinkedInJobs (job_id,job_title, company_name,City, time_posted, job_link,num_applicatns, formatted_dataTime) VALUES (%s,%s,%s,%s,%s, %s, %s, %s)"""
         delete_query="""DELETE FROM LinkedInJobs"""
         
+        cursor.execute(delete_query)
         
         for job in data:
             job_id = job.get('job_id')
@@ -54,12 +55,11 @@ def job():
     data = ls.linkedin_scraper()
     if data: 
         print("Data is not empty")
-        saveToDBLikedin(data,"LinkedinDB")
+        saveToDBLikedin(data,"LinkedInDB")
         print("Data has been saved to DB")
         
-schedule.every().hour.do(job)
+schedule.every().hours.do(job)
 
 if __name__=="__main__":
     while True:
         schedule.run_pending()
-        time.sleep(1)
