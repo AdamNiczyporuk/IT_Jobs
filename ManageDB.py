@@ -23,13 +23,6 @@ def get_dataDB (nameDB):
         return []
     finally:
         cursor.close()
-        connection.close()
- 
-
-
-
-
-
 
 #function to Create Database table
 def create_tableDBLikedIn(nameDB):
