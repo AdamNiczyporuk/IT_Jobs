@@ -68,6 +68,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
+            let applicantsAscending = true; 
+            let timePostedAscending = true;
             $('#collectDataButton').click(function() {
                 const checkedLinks = [];
                 $('.job-checkbox:checked').each(function() {
@@ -76,6 +78,15 @@
                 });
                 alert('Zebrane linki: ' + checkedLinks.join(', ')); // Wyświetl zebrane linki w okienku alert
             });
+            $("#sortApplicants").click(function(){ 
+                sortTable(4,applicantsAscending);
+                applicantsAscending= ! applicantsAscending
+            })
+
+            $("sortTimePosted").click(function(){ 
+                sortTable(5,timePostedAscending);
+                timePostedAscending= !timePostedAscending
+            })
 
             $('#openPopupButton').click(function() {
                 $('#popup').fadeIn();
@@ -142,6 +153,41 @@
                 }
             }
         });
+
+        function sortTable(columnIndex, ascending) {
+            const jobTable = document.getElementById('jobTable');
+            const rows = Array.from(jobTable.getElementsByTagName('tr'));
+        
+            // Oddziel nagłówki od wierszy danych
+            const header = rows.shift();
+            const dataRows = rows;
+        
+            const sortedRows = dataRows.sort((a, b) => {
+                const aText = a.getElementsByTagName('td')[columnIndex]?.innerText || '';
+                const bText = b.getElementsByTagName('td')[columnIndex]?.innerText || '';
+        
+                if (columnIndex === 4) { // Applicants column
+                    const aApplicants = parseInt(aText) || 0;
+                    const bApplicants = parseInt(bText) || 0;
+                    return ascending ? aApplicants - bApplicants : bApplicants - aApplicants;
+                } else if (columnIndex === 5) { // Time Posted column
+                    const aTimePosted = new Date(aText);
+                    const bTimePosted = new Date(bText);
+                    return ascending ? aTimePosted - bTimePosted : bTimePosted - aTimePosted;
+                } else {
+                    return ascending ? aText.localeCompare(bText) : bText.localeCompare(aText);
+                }
+            });
+        
+            // Usuń istniejące wiersze
+            while (jobTable.firstChild) {
+                jobTable.removeChild(jobTable.firstChild);
+            }
+        
+            // Dodaj nagłówek i posortowane wiersze
+            jobTable.appendChild(header);
+            sortedRows.forEach(row => jobTable.appendChild(row));
+        }
     </script>
 </body>
 </html>
