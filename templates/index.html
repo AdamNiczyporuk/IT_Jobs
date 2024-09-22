@@ -155,6 +155,10 @@
         });
 
         function parseTimePosted(text) {
+            if(!text || cellText.toLowerCase() === 'none')
+            {
+                return null;
+            }
             const now = new Date();
             const [value, unit] = text.split(' ');
         
@@ -184,38 +188,38 @@
 
         function sortTable(columnIndex, ascending) {
             const jobTable = document.getElementById('jobTable');
-            const rows = Array.from(jobTable.getElementsByTagName('tr'));
+            const rows = Array.from(jobTable.getElementsByTagName('tr')).slice(1); // Pomijamy pierwszy wiersz nagłówka
         
-            // Oddziel nagłówki od wierszy danych
-            const header = rows.shift();
-            const dataRows = rows;
-        
-            const sortedRows = dataRows.sort((a, b) => {
-                const aText = a.getElementsByTagName('td')[columnIndex]?.innerText || '';
-                const bText = b.getElementsByTagName('td')[columnIndex]?.innerText || '';
+            const sortedRows = rows.sort((a, b) => {
+                const aText = a.getElementsByTagName('td')[columnIndex]?.innerText.trim() || '';
+                const bText = b.getElementsByTagName('td')[columnIndex]?.innerText.trim() || '';
         
                 if (columnIndex === 4) { // Applicants column
                     const aApplicants = parseInt(aText) || 0;
                     const bApplicants = parseInt(bText) || 0;
                     return ascending ? aApplicants - bApplicants : bApplicants - aApplicants;
                 } else if (columnIndex === 5) { // Time Posted column
-                    const aTimePosted = parseTImePosted(aText);
-                    const bTimePosted = parseTImePosted(bText);
+                    const aTimePosted = parseTimePosted(aText);
+                    const bTimePosted = parseTimePosted(bText);
+        
+                    if (aTimePosted === null) return ascending ? 1 : -1;
+                    if (bTimePosted === null) return ascending ? -1 : 1;
+        
                     return ascending ? aTimePosted - bTimePosted : bTimePosted - aTimePosted;
                 } else {
                     return ascending ? aText.localeCompare(bText) : bText.localeCompare(aText);
                 }
             });
         
-            // Usuń istniejące wiersze
-            while (jobTable.firstChild) {
-                jobTable.removeChild(jobTable.firstChild);
+              // Usuń istniejące wiersze
+            while (jobTable.rows.length > 1) {
+                jobTable.deleteRow(1);
             }
-        
-            // Dodaj nagłówek i posortowane wiersze
-            jobTable.appendChild(header);
-            sortedRows.forEach(row => jobTable.appendChild(row));
-        }
+
+            // Dodaj posortowane wiersze
+            sortedRows.forEach(row => jobTable.appendChild(row));   
+    }
+
     </script>
 </body>
 </html>
