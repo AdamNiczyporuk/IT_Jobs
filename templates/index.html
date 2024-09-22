@@ -155,12 +155,12 @@
         });
 
         function parseTimePosted(text) {
-            if(!text || cellText.toLowerCase() === 'none')
-            {
+            if (!text || text.toLowerCase() === 'none') {
                 return null;
             }
+        
             const now = new Date();
-            const [value, unit] = text.split(' ');
+            const [value, unit, ago] = text.split(' ');
         
             const number = parseInt(value);
             if (isNaN(number)) {
@@ -184,7 +184,6 @@
                     return now;
             }
         }
-        
 
         function sortTable(columnIndex, ascending) {
             const jobTable = document.getElementById('jobTable');
@@ -210,16 +209,14 @@
                     return ascending ? aText.localeCompare(bText) : bText.localeCompare(aText);
                 }
             });
-        
-              // Usuń istniejące wiersze
+            // Usuń istniejące wiersze
             while (jobTable.rows.length > 1) {
                 jobTable.deleteRow(1);
             }
 
             // Dodaj posortowane wiersze
-            sortedRows.forEach(row => jobTable.appendChild(row));   
-    }
-
+            sortedRows.forEach(row => jobTable.appendChild(row));
+            }
     </script>
 </body>
 </html>
