@@ -48,7 +48,7 @@
                     <th class="text-center">Time Posted <button class="btn btn-link text-light p-0 ml-2" id="sortTimePosted"><i class="fas fa-sort"></i></button></th>
                 </tr>
             </thead>
-            <tbody id="jobTable">
+            <tbody >
                 {% for job in jobListing %}
                 <tr>
                     <td id="Selected" class="checkbox-cell"><input type="checkbox" class="job-checkbox" id="checkbox-{{job[0]}}"></td>
@@ -83,7 +83,7 @@
                 applicantsAscending= ! applicantsAscending
             })
 
-            $("sortTimePosted").click(function(){ 
+            $("#sortTimePosted").click(function(){ 
                 sortTable(5,timePostedAscending);
                 timePostedAscending= !timePostedAscending
             })
@@ -154,6 +154,34 @@
             }
         });
 
+        function parseTimePosted(text) {
+            const now = new Date();
+            const [value, unit] = text.split(' ');
+        
+            const number = parseInt(value);
+            if (isNaN(number)) {
+                return now;
+            }
+        
+            switch (unit) {
+                case 'day':
+                case 'days':
+                    return new Date(now.setDate(now.getDate() - number));
+                case 'week':
+                case 'weeks':
+                    return new Date(now.setDate(now.getDate() - number * 7));
+                case 'month':
+                case 'months':
+                    return new Date(now.setMonth(now.getMonth() - number));
+                case 'year':
+                case 'years':
+                    return new Date(now.setFullYear(now.getFullYear() - number));
+                default:
+                    return now;
+            }
+        }
+        
+
         function sortTable(columnIndex, ascending) {
             const jobTable = document.getElementById('jobTable');
             const rows = Array.from(jobTable.getElementsByTagName('tr'));
@@ -171,8 +199,8 @@
                     const bApplicants = parseInt(bText) || 0;
                     return ascending ? aApplicants - bApplicants : bApplicants - aApplicants;
                 } else if (columnIndex === 5) { // Time Posted column
-                    const aTimePosted = new Date(aText);
-                    const bTimePosted = new Date(bText);
+                    const aTimePosted = parseTImePosted(aText);
+                    const bTimePosted = parseTImePosted(bText);
                     return ascending ? aTimePosted - bTimePosted : bTimePosted - aTimePosted;
                 } else {
                     return ascending ? aText.localeCompare(bText) : bText.localeCompare(aText);
