@@ -109,8 +109,9 @@ def saveToDBLikedin(data,nameDB):
         
         InserQuery = """INSERT INTO LinkedInJobs (job_id,job_title, company_name,City, time_posted, job_link,num_applicatns, formatted_dataTime) VALUES (%s,%s,%s,%s,%s, %s, %s, %s)"""
         SelectQuery="""SELECT COUNT(*) From LinkedInJobs WHERE job_id=%s"""
+        deleteQuery="""DELETE FROM LinkedInJobs"""
         
-        
+        cursor.execute(deleteQuery)
         for job in data:
             job_id = job.get('job_id')
             job_title = job.get('job_title')
