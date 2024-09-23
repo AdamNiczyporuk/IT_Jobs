@@ -16,7 +16,7 @@ def main():
     Data = LkScrap.linkedin_scraper()
 
     # print(Data)
-    db.saveToDB(Data,"LinkedInDB")
+    db.saveToDBLikedin(Data,"LinkedInDB")
     # print(db.get_dataDB("LinkedInDB"))
     #  website.app.run(debug=True)
     
