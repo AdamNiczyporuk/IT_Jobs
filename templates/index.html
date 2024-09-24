@@ -77,7 +77,20 @@
                     const jobLink = $(this).closest('tr').find('a').attr('href');
                     checkedLinks.push(jobLink);
                 });
-                alert('Zebrane linki: ' + checkedLinks.join(', ')); // Wyświetl zebrane linki w okienku alert
+
+                let csvContent = "data:text/csv;charset=utf-8,Link\n";
+                checkedLinks.forEach(function(link) {
+                    csvContent += link + "\r\n";
+                });
+
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "job_links.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                });
             });
             $("#sortApplicants").click(function(){ 
                 sortTable(4,applicantsAscending);
