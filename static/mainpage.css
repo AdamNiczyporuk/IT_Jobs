@@ -1,0 +1,26 @@
+body{ 
+    background-color:#1d1e22;
+    color: #fff; /* Ustawia kolor tekstu na biały */
+}
+
+.category-card {
+    margin-bottom: 20px;
+    border: 1px solid #1d1e22;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #000; /* Ustawia kolor tła na czarny */
+}
+
+.category-card .card-body {
+    padding: 20px;
+}
+
+.category-card .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+}
+
+.category-card .btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+}

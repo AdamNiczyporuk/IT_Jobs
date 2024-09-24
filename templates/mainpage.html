@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Categories</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='mainpage.css') }}">
+    
+</head>
+<body>
+    <h1 style="text-align: center;">Job Listing</h1>
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card category-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">IT & Software</h5>
+                        <a href="/jobs/it-software" class="btn btn-dark">View Jobs</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card category-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Marketing</h5>
+                        <a href="/jobs/marketing" class="btn btn-dark">View Jobs</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card category-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Finance</h5>
+                        <a href="/jobs/finance" class="btn btn-dark">View Jobs</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more categories as needed -->
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
