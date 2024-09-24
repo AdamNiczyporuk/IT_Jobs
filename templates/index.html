@@ -82,6 +82,12 @@
                 checkedLinks.forEach(function(link) {
                     csvContent += link + "\r\n";
                 });
+                if (checkedLinks.length === 0)
+                {
+                    alert("No links selected");
+                    return;
+                }
+                
     
                 const encodedUri = encodeURI(csvContent);
                 const linkElement = document.createElement("a");
