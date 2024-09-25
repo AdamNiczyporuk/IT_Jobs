@@ -24,3 +24,26 @@ body{
     font-size: 1rem;
     padding: 10px 20px;
 }
+
+.input-group-text {
+    background-color: transparent;
+    border: none;
+    padding-right: 0;
+    display: flex;
+    align-items: center;
+}
+
+.input-group .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.input-group .form-control:focus {
+    box-shadow: none;
+}
+
+.input-group .material-symbols-outlined {
+    color: #6c757d; /* Kolor ikony */
+    margin-left: -40px; /* Przesunięcie ikony do wewnątrz pola tekstowego */
+    cursor: pointer;
+}
