@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='mainpage.css') }}">
     <!-- Google Font-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1 style="text-align: center;">Job Listing</h1>
+    <h1 class="text-center mt-2 anton-regular">JOB LISTING</h1>
     <div class="container">
         <div class="row mt-m-4">
             <div class="col-md-8">
@@ -32,33 +34,7 @@
     </div>
    
     <div class="container">
-        <div class="row mt-4">
-            <div class="col-md-4">
-                <div class="card category-card">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">IT & Software</h5>
-                        <a href="/jobs/it-software" class="btn btn-dark">View Jobs</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card category-card">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Marketing</h5>
-                        <a href="/jobs/marketing" class="btn btn-dark">View Jobs</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card category-card">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Finance</h5>
-                        <a href="/jobs/finance" class="btn btn-dark">View Jobs</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Add more categories as needed -->
-        </div>
+        <h1 class="text-center mt-3  kanit-thin">Search for job in location you want</h1>
     </div>
 
     <!-- jQuery -->
