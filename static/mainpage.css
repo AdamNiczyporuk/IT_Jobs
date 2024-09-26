@@ -54,3 +54,13 @@ body{
     font-style: normal;
     font-size:48px;
 }
+.ibm-plex-mono-thin {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 100;
+    font-style: normal;
+  }
+  .ibm-plex-mono-bold {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 300;
+    font-style: normal;
+  }
