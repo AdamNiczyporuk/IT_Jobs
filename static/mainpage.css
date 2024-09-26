@@ -25,18 +25,20 @@ body{
     padding: 10px 20px;
 }
 
-.search-input {
-    padding-left: 40px; /* Dodaj odstęp na ikonę */
+.input-group {
     position: relative;
 }
 
-.search-input::before {
-    content: 'search'; /* Tekst ikony */
-    font-family: 'Material Symbols Outlined';
+.input-icon {
     position: absolute;
-    left: 10px;
+    right: 15px;
     top: 50%;
     transform: translateY(-50%);
     color: #6c757d; /* Kolor ikony */
     font-size: 24px; /* Rozmiar ikony */
+    pointer-events: none; /* Zapobiega interakcji z ikoną */
+}
+
+.search-input {
+    padding-right: 40px; /* Dodaj odstęp na ikonę */
 }
