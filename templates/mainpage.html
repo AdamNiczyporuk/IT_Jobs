@@ -37,7 +37,7 @@
    
     <div class="container">
         <div class="typing-animation-container">
-            <h1 class="mt-3 ibm-plex-mono-thin"><span class="question"></span><span class="question-marks"></span></h1>
+            <h1 class="mt-3 ibm-plex-mono-thin"><span class="question"></span> <span class="question-marks"></span></h1>
         </div>
     </div>
 
@@ -48,16 +48,25 @@
     <!--Typing Script-->
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 </body>
-    <script>
-        var typed=new Typed(".question",{
-            strings:["What are you looking for?"],
-            typeSpeed: 100,
-        })
-        var typed = new Typed(".question-marks",{
-            strings:["???"],
-            typeSpeed: 100,
-            loop: true
-        })
-    </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var typed = new Typed(".question", {
+            strings: ["What are you looking for"],
+            typeSpeed: 40,
+            showCursor: false,
+            onComplete: function() {
+                setTimeout(function() {
+                    var typedDots = new Typed(".question-marks", {
+                        strings: ["???"],
+                        typeSpeed: 30,
+                        loop: true,
+                        backSpeed: 50,
+                        backDelay: 4000
+                    });
+                }, 500);
+            }
+        });
+    });
+</script>
 
 </html>
