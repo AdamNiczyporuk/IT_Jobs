@@ -76,7 +76,9 @@ body{
 }
 
 .typing-animation-container {
-    text-align: center; /* Wyśrodkowanie tekstu */
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 @keyframes typing {
