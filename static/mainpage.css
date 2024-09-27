@@ -65,15 +65,7 @@ body{
     font-style: normal;
   }
  
-  .typing-animation {
-    display: inline-block; /* Umożliwia animację wewnątrz wyśrodkowanego kontenera */
-    border-right: .15em solid #000; /* Dodaj kursor */
-    white-space: nowrap; /* Zapobiega zawijaniu tekstu */
-    overflow: hidden; /* Ukrywa tekst, który nie mieści się w kontenerze */
-    width: 0; /* Początkowa szerokość */
-    animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
-    animation-fill-mode: forwards; /* Zachowuje ostatnią klatkę animacji */
-}
+
 
 .typing-animation-container {
     align-items: center;
@@ -81,12 +73,3 @@ body{
     justify-content: center;
 }
 
-@keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
-@keyframes blink-caret {
-    from, to { border-color: transparent; }
-    50% { border-color: black; }
-}
