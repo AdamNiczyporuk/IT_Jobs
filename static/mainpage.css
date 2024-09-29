@@ -80,3 +80,15 @@ body{
     border-bottom-left-radius: 0;
 }
 
+/* Button */
+.btn-outline-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Search Icon */
+.search-icon {
+    font-size: 24px; /* Dostosuj rozmiar ikony, jeśli to konieczne */
+}
