@@ -15,22 +15,17 @@ document.addEventListener("DOMContentLoaded", function() {
             }, 500);
         }
     });
-});
 
-document.getElementById("searchButton").addEventListener("click", function() {
-    var searchQuery = document.getElementById("searchBar").value;
-    var locationQuery = document.getElementById("locationSearchBar").value;
-    alert(searchQuery+" "+locationQuery);
-});
-
-var searchButton = document.getElementById("searchButton");
+    var searchButton = document.getElementById("searchButton");
     if (searchButton) {
         console.log("Search button found");
         searchButton.addEventListener("click", function() {
-            var searchQuery = document.getElementById("searchBar").value;
+            var searchQuery = document.getElementById("keywordSearchBar").value;
             var locationQuery = document.getElementById("locationSearchBar").value;
+            console.log("Search button clicked");
             alert(searchQuery + " " + locationQuery);
         });
     } else {
         console.log("Search button not found");
     }
+});
