@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var searchQuery = document.getElementById("keywordSearchBar").value;
             var locationQuery = document.getElementById("locationSearchBar").value;
             console.log("Search button clicked");
-            alert(searchQuery + " " + locationQuery);
+            // alert(searchQuery + " " + locationQuery);
         });
     } else {
         console.log("Search button not found");
