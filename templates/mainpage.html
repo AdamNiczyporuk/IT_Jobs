@@ -10,6 +10,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='mainpage.css') }}">
+    <!--Custom JS-->
+    <script src="{{ url_for('static', filename='mainpage.js') }}"></script>
     <!-- Google Font-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,13 +28,13 @@
         <div class="row d-flex">
             <div class="col-md-8 p-0">
                 <div class="input-group">
-                    <input class="form-control btn-lg search-input" type="text" id="searchBar" placeholder="Search for jobs">
+                    <input class="form-control btn-lg search-input" type="text" id="keywordSearchBar" placeholder="Search for jobs">
                 </div>
             </div>
             <div class="col-md-4 p-0">
                 <div class="input-group">
                     <input class="form-control btn-lg search-input" type="text" id="locationSearchBar" placeholder="Location">
-                    <button class="btn btn-outline-secondary" type="button">
+                    <button class="btn btn-outline-secondary" type="button" id="searchButton">
                         <span class="material-symbols-outlined search-icon">
                             search
                         </span>
@@ -55,25 +57,7 @@
     <!--Typing Script-->
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 </body>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var typed = new Typed(".question", {
-            strings: ["What are you looking for"],
-            typeSpeed: 40,
-            showCursor: false,
-            onComplete: function() {
-                setTimeout(function() {
-                    var typedDots = new Typed(".question-marks", {
-                        strings: ["???"],
-                        typeSpeed: 30,
-                        loop: true,
-                        backSpeed: 50,
-                        backDelay: 4000
-                    });
-                }, 500);
-            }
-        });
-    });
+
 </script>
 
 </html>

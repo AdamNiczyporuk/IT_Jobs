@@ -1,48 +1,36 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const typingText = document.getElementById("typing-text");
-    const typingDots = document.getElementById("typing-dots");
-    const text = typingText.textContent;
-    typingText.textContent = "";
-
-    let index = 0;
-    function type() {
-        if (index < text.length) {
-            typingText.textContent += text.charAt(index);
-            index++;
-            setTimeout(type, 100);
-        } else {
-            setTimeout(rewriteDots, 500);
+    var typed = new Typed(".question", {
+        strings: ["What are you looking for"],
+        typeSpeed: 40,
+        showCursor: false,
+        onComplete: function() {
+            setTimeout(function() {
+                var typedDots = new Typed(".question-marks", {
+                    strings: ["???"],
+                    typeSpeed: 30,
+                    loop: true,
+                    backSpeed: 50,
+                    backDelay: 4000
+                });
+            }, 500);
         }
-    }
-
-    function rewriteDots() {
-        typingDots.textContent = "";
-        let dots = 0;
-        function addDot() {
-            if (dots < 3) {
-                typingDots.textContent += "?";
-                dots++;
-                setTimeout(addDot, 500);
-            } else {
-                setTimeout(removeDots, 500);
-            }
-        }
-        addDot();
-    }
-
-    function removeDots() {
-        let dots = typingDots.textContent.length;
-        function removeDot() {
-            if (dots > 0) {
-                typingDots.textContent = typingDots.textContent.slice(0, -1);
-                dots--;
-                setTimeout(removeDot, 500);
-            } else {
-                setTimeout(rewriteDots, 500);
-            }
-        }
-        removeDot();
-    }
-
-    type();
+    });
 });
+
+document.getElementById("searchButton").addEventListener("click", function() {
+    var searchQuery = document.getElementById("searchBar").value;
+    var locationQuery = document.getElementById("locationSearchBar").value;
+    alert(searchQuery+" "+locationQuery);
+});
+
+var searchButton = document.getElementById("searchButton");
+    if (searchButton) {
+        console.log("Search button found");
+        searchButton.addEventListener("click", function() {
+            var searchQuery = document.getElementById("searchBar").value;
+            var locationQuery = document.getElementById("locationSearchBar").value;
+            alert(searchQuery + " " + locationQuery);
+        });
+    } else {
+        console.log("Search button not found");
+    }
