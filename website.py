@@ -1,4 +1,5 @@
 import ManageDB
+import likedinScraper
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
@@ -8,7 +9,15 @@ def search():
     keyword = data['keyword']
     loctaion = data['location']
     
-    result = ManageDB.get_ALL_data_DB("LinkedInDB", keyword, location)
+    result = ManageDB.searchDB("LinkedInDB",keyword,loctaion)
+    if result:
+        return jsonify(result)
+    if likedinScraper.linkedin_scraper(keyword,loctaion):
+        result = ManageDB.searchDB("LinkedInDB",keyword,loctaion)
+        return jsonify(result)
+    return jsonify({"message": "No results found"}), 404
+
+    
     
  
 def index ():
