@@ -2,7 +2,7 @@ import ManageDB
 from flask import Flask, render_template
 app = Flask(__name__)
 
-@app.route('/jobs')
+@app.route('/jobs', methods=['POST'])
 def index ():
     data = ManageDB.get_dataDB("LinkedInDB")
     return render_template('index.html', jobListing=data)
