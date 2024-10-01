@@ -3,7 +3,37 @@ import config_data
 import  scraper
 import datetime
 
-def get_dataDB (nameDB):
+def searchDB(nameDB,keyword,location):
+    try:
+        connection  = pymysql.connect(
+            host='127.0.0.1',
+            user=config_data.user,
+            password=config_data.password,
+            database=nameDB,
+            port= 3306
+        )
+        cursor = connection .cursor()
+        SelectQuery = """
+                Select * FROM LinkedInJobs WHERE job_title LIKE %s AND city LIKE %s
+                """
+                
+        cursor.execute(SelectQuery, (f"%{keyword}%", f"%{location}%"))
+        print("Data Selected")
+        result= cursor.fetchall()
+        return result
+    except pymysql.MySQLError as error:
+        print(f"Error: {error}")
+    
+    finally: 
+         if connection:
+            cursor.close()
+            connection.close()
+            print("Połączenie zostało zamknięte.")
+            
+            
+            
+            
+def get_ALL_data_DB (nameDB):
     connection  = pymysql.connect(
             host='127.0.0.1',
             user=config_data.user,

@@ -17,7 +17,7 @@ def main():
 
     # # print(Data)
     # db.saveToDBLikedin(Data,"LinkedInDB")
-    # print(db.get_dataDB("LinkedInDB"))
+    # print(db.get_ALL_data_DB("LinkedInDB"))
     website.app.run(debug=True)
     
 if __name__ == '__main__':
