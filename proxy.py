@@ -4,8 +4,9 @@ import config_data as config
 import requests
 import subprocess
 import time 
-import functions as ag
+import Usefulfunctions as ag
 import random
+
 
 
 proxy_list=[
