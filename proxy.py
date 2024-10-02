@@ -4,7 +4,7 @@ import config_data as config
 import requests
 import subprocess
 import time 
-import agents as ag
+import functions as ag
 import random
 
 

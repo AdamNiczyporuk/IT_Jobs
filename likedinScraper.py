@@ -87,7 +87,7 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
                 break
             
             if  job_response.status_code == 429:
-                time_sleep = random.uniform(1, 5)
+                time_sleep = random.uniform(1, 10)
                 print(f"Coun Check {Checking} this {job_id} time sleep {time_sleep}")
                 time.sleep(time_sleep)
                 Checking +=1

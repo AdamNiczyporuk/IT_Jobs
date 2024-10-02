@@ -147,6 +147,7 @@ def saveToDBLikedin(data,nameDB):
             job_title = job.get('job_title')
             Company_name = job.get('company_name')
             city = job.get('city').split(",")[0]
+            city = city.lower()
             time_posted = job.get('time_posted')
             job_link = job.get('job_link')
             num_applicatns= job.get('num_applicatns')
