@@ -5,6 +5,7 @@ body{
 table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: auto; /* Dodane */
 }
 th, td {
     border: 1px solid #393f4d;
@@ -105,8 +106,23 @@ th {
 .centered {
     text-align: center; /* Wyśrodkowanie tekstu w poziomie */
 }
+
 a {
     justify-content: center;
     text-decoration: none; /* Usuwa podkreślenie */
     color: inherit; /* Ustawia kolor tekstu na dziedziczony */
+}
+
+.auto-width {
+    width: auto;
+    /* white-space: nowrap; Zapobiega zawijaniu tekstu */
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
+.job-title-column {
+    width: 150px; /* Ustaw szerokość kolumny na 150 pikseli */
+    white-space: nowrap; /* Zapobiega zawijaniu tekstu */
 }
