@@ -115,7 +115,7 @@ a {
 
 .auto-width {
     width: auto;
-    /* white-space: nowrap; Zapobiega zawijaniu tekstu */
+    white-space: nowrap; /* Zapobiega zawijaniu tekstu */
 }
 
 .no-wrap {
