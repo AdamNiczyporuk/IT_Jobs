@@ -5,7 +5,7 @@ import requests
 import subprocess
 import time 
 import random
-
+from fake_useragent import UserAgent
 
 
 proxy_list=[
@@ -60,7 +60,8 @@ def make_request_proxy(url):
         # 'https': proxy
     }
     
-    headers = {'User-Agent': ag.get_random_agent()}
+    ua = UserAgent()
+    headers = {'User-Agent': ua.random}
     
     # renew_ip(session)
     
