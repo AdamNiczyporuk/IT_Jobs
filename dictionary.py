@@ -1,5 +1,5 @@
 city_mapping ={ 
-               'bialystok': 'bialystok',
+               'bialystok': 'białystok',
                'poland' : 'białystok', 
                'Cravow' : 'kraków',
 }

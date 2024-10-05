@@ -4,7 +4,6 @@ import config_data as config
 import requests
 import subprocess
 import time 
-import Usefulfunctions as ag
 import random
 
 
