@@ -1,241 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Job Listings</title>
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='data.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='data.css') }}"
+    />
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-</head>
-<body>
-    
-    <h1 style="text-align: center;">Job Listing</h1>
-    <div class="d-flex justify-content-center mb-3 mt-3" >
-        <input class="form-control rounded-pill w-75 btn-lg" type="text" id="searchBar" placeholder="Search for job title...">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class ="m-3 mb-4">
+      <h1 style="text-align: center">Job Listing</h1>
+    </div>
+    <div class="d-flex justify-content-center mb-3 mt-3">
+      <input
+        class="form-control  w-75 btn-lg "
+        type="text"
+        id="searchBar"
+        placeholder="Search for job title..."
+      />
     </div>
     <div class="buttons-container mb-3">
-        <button class="btn btn-dark mr-2 btn-lg" id="applyFiltersButton">Search</button>
-        <button class="btn btn-dark mr-2 btn-lg" id="openPopupButton">Filter</button>
-        <button class="btn btn-dark mr-2 btn-lg" id="collectDataButton">Collect Data</button>
-        <button class = "btn btn-dark btn-lg" id="resetfilter">Reset filters</button>
-        
+      <button class="btn btn-dark mr-2 btn-lg" id="applyFiltersButton">
+        Search
+      </button>
+      <button class="btn btn-dark mr-2 btn-lg" id="openPopupButton">
+        Filter
+      </button>
+      <button class="btn btn-dark mr-2 btn-lg" id="collectDataButton">
+        Collect Data
+      </button>
+      <button class="btn btn-dark btn-lg" id="resetfilter">
+        Reset filters
+      </button>
     </div>
     <div id="popup" class="popup">
-        <div class="popup-content">
-            <span class="close">&times;</span>
-            <h2 class="centered">Filter Jobs</h2>
-            <input type="text" id="city" placeholder="City">
-            <input type="number" id="minApplicants" placeholder="Min applicants">
-            <input type="number" id="maxApplicants" placeholder="Max applicants">
-            <input type="text" id="timePosted" placeholder="Time posted (e.g., '1 day ago')">
-            <div class="button-container">
-                <button class="center-button" id="applyPopupFiltersButton">Apply Filters</button>
-            </div>
+      <div class="popup-content">
+        <span class="close">&times;</span>
+        <h2 class="centered">Filter Jobs</h2>
+        <input type="text" id="city" placeholder="City" />
+        <input type="number" id="minApplicants" placeholder="Min applicants" />
+        <input type="number" id="maxApplicants" placeholder="Max applicants" />
+        <input
+          type="text"
+          id="timePosted"
+          placeholder="Time posted (e.g., '1 day ago')"
+        />
+        <div class="button-container">
+          <button class="center-button" id="applyPopupFiltersButton">
+            Apply Filters
+          </button>
         </div>
+      </div>
     </div>
     <div class="container-fluid mt-4">
-        <table class="table table-dark table-striped mt-4" id="jobTable">
-            <thead>
-                <tr>
-                    <th class="text-center">Selected</th>
-                    <th class="text-center">Company Name</th>
-                    <th class="text-center auto-width">Job Title</th>
-                    <th class="text-center">City</th>
-                    <th class="text-center no-wrap">Applicants <button class="btn btn-link text-light p-0 ml-2" id="sortApplicants"><i class="fas fa-sort"></i></button></th>
-                    <th class="text-center no-wrap">Time Posted <button class="btn btn-link text-light p-0 ml-2 no-wrap" id="sortTimePosted"><i class="fas fa-sort"></i></button></th>
-                </tr>
-            </thead>
-            <tbody >
-                {% for job in jobListing %}
-                <tr>
-                    <td id="Selected" class="checkbox-cell text-center"><input type="checkbox" class="job-checkbox" id="checkbox-{{ job['id'] }}"></td>
-                    <td id="Company_Name" class="text-center">{{ job['company_name'] }}</td>
-                    <td id="Job_TitleWithLink" class="text-center auto-width"><a href="{{ job['link'] }}" target="_blank">{{ job['job_title'] }}</a></td>
-                    <td id="City" class="text-center">{{ city_mapping[job['city'] | lower] | capitalize | default(job['city'] | capitalize) }}</td>
-                    <td id="Number_of_Applicants" class="text-center">{{ job['applicants'] }}</td>
-                    <td id="Time_Posted" class="text-center">{{ job['time_posted'] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+      <table class="table table-dark table-striped mt-4" id="jobTable">
+        <thead>
+          <tr>
+            <th class="text-center">Selected</th>
+            <th class="text-center">Company Name</th>
+            <th class="text-center auto-width">Job Title</th>
+            <th class="text-center">City</th>
+            <th class="text-center no-wrap">
+              Applicants
+              <button
+                class="btn btn-link text-light p-0 ml-2"
+                id="sortApplicants"
+              >
+                <i class="fas fa-sort"></i>
+              </button>
+            </th>
+            <th class="text-center no-wrap">
+              Time Posted
+              <button
+                class="btn btn-link text-light p-0 ml-2 no-wrap"
+                id="sortTimePosted"
+              >
+                <i class="fas fa-sort"></i>
+              </button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for job in jobListing %}
+          <tr>
+            <td id="Selected" class="checkbox-cell text-center">
+              <input
+                type="checkbox"
+                class="job-checkbox"
+                id="checkbox-{{ job['id'] }}"
+              />
+            </td>
+            <td id="Company_Name" class="text-center">
+              {{ job['company_name'] }}
+            </td>
+            <td id="Job_TitleWithLink" class="text-center auto-width">
+              <a href="{{ job['link'] }}" target="_blank"
+                >{{ job['job_title'] }}</a
+              >
+            </td>
+            <td id="City" class="text-center">
+              {{ (city_mapping[job['city'] | lower] | default(job['city'])) |
+              capitalize }}
+            </td>
+            <td id="Number_of_Applicants" class="text-center">
+              {{ job['applicants'] }}
+            </td>
+            <td id="Time_Posted" class="text-center">
+              {{ job['time_posted'] }}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
     <!-- jQuery, Popper.js, Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function() {
-            let applicantsAscending = true; 
-            let timePostedAscending = true;
-            $('#collectDataButton').click(function() {
-                const checkedLinks = [];
-                $('.job-checkbox:checked').each(function() {
-                    const jobLink = $(this).closest('tr').find('a').attr('href');
-                    checkedLinks.push(jobLink);
-                });
-    
-                let csvContent = "data:text/csv;charset=utf-8,Link\n";
-                checkedLinks.forEach(function(link) {
-                    csvContent += link + "\r\n";
-                });
-                if (checkedLinks.length === 0)
-                {
-                    alert("No links selected");
-                    return;
-                }
-                
-    
-                const encodedUri = encodeURI(csvContent);
-                const linkElement = document.createElement("a");
-                linkElement.setAttribute("href", encodedUri);
-                linkElement.setAttribute("download", "job_links.csv");
-                document.body.appendChild(linkElement);
-                linkElement.click();
-                document.body.removeChild(linkElement);
-            });
-            $("#sortApplicants").click(function(){ 
-                sortTable(4,applicantsAscending);
-                applicantsAscending= ! applicantsAscending
-            })
+      $(document).ready(function () {
+        let applicantsAscending = true;
+        let timePostedAscending = true;
+        $("#collectDataButton").click(function () {
+          const checkedLinks = [];
+          $(".job-checkbox:checked").each(function () {
+            const jobLink = $(this).closest("tr").find("a").attr("href");
+            checkedLinks.push(jobLink);
+          });
 
-            $("#sortTimePosted").click(function(){ 
-                sortTable(5,timePostedAscending);
-                timePostedAscending= !timePostedAscending
-            })
+          let csvContent = "data:text/csv;charset=utf-8,Link\n";
+          checkedLinks.forEach(function (link) {
+            csvContent += link + "\r\n";
+          });
+          if (checkedLinks.length === 0) {
+            alert("No links selected");
+            return;
+          }
 
-            $('#openPopupButton').click(function() {
-                $('#popup').fadeIn();
-            });
-
-            $('.close').click(function() {
-                $('#popup').fadeOut();
-            });
-
-            $('#applyFiltersButton').click(function() {
-                applyFilters();
-            });
-
-            $('#applyPopupFiltersButton').click(function() {
-                applyFilters();
-            });
-
-           $('#resetfilter').click(function() {
-                $('#searchBar').val('');
-                $('#minApplicants').val('');
-                $('#maxApplicants').val('');
-                $('#timePosted').val('');
-                $('#city').val('');
-                filterJobs('', 0, Infinity, '', '');
-            });
-
-            function applyFilters() {
-                const searchTerm = $('#searchBar').val().toLowerCase();
-                const minApplicants = parseInt($('#minApplicants').val()) || 0;
-                const maxApplicants = parseInt($('#maxApplicants').val()) || Infinity;
-                const timePosted = $('#timePosted').val().toLowerCase();
-                const city = $('#city').val().toLowerCase();
-
-                filterJobs(searchTerm, minApplicants, maxApplicants, timePosted, city);
-            }
-
-            function filterJobs(searchTerm, minApplicants, maxApplicants, timePosted, city) {
-                const jobTable = document.getElementById('jobTable');
-                const rows = jobTable.getElementsByTagName('tr');
-                for (let i = 0; i < rows.length; i++) {
-                    const cells = rows[i].getElementsByTagName('td');
-                    let match = true;
-                    for (let j = 0; j < cells.length; j++) {
-                        if (cells[j]) {
-                            const cellText = cells[j].textContent || cells[j].innerText;
-                            if (j == 2 && cellText.toLowerCase().indexOf(searchTerm) === -1) { // Zmiana na kolumnę "Job Title"
-                                match = false;
-                            }
-                            if (j == 4) {
-                                const applicants = parseInt(cellText);
-                                if ((minApplicants && applicants < minApplicants) || (maxApplicants && applicants > maxApplicants)) {
-                                    match = false;
-                                }
-                            }
-                            if (j == 5 && cellText.toLowerCase().indexOf(timePosted) === -1) {
-                                match = false;
-                            }
-                            if (j == 3 && cellText.toLowerCase().indexOf(city) === -1) {
-                                match = false;
-                            }
-                        }
-                    }
-                    rows[i].style.display = match ? '' : 'none';
-                }
-            }
+          const encodedUri = encodeURI(csvContent);
+          const linkElement = document.createElement("a");
+          linkElement.setAttribute("href", encodedUri);
+          linkElement.setAttribute("download", "job_links.csv");
+          document.body.appendChild(linkElement);
+          linkElement.click();
+          document.body.removeChild(linkElement);
+        });
+        $("#sortApplicants").click(function () {
+          sortTable(4, applicantsAscending);
+          applicantsAscending = !applicantsAscending;
         });
 
-        function parseTimePosted(text) {
-            if (!text || text.toLowerCase() === 'none') {
-                return null;
-            }
-        
-            const now = new Date();
-            const [value, unit, ago] = text.split(' ');
-        
-            const number = parseInt(value);
-            if (isNaN(number)) {
-                return now;
-            }
-        
-            switch (unit) {
-                case 'day':
-                case 'days':
-                    return new Date(now.setDate(now.getDate() - number));
-                case 'week':
-                case 'weeks':
-                    return new Date(now.setDate(now.getDate() - number * 7));
-                case 'month':
-                case 'months':
-                    return new Date(now.setMonth(now.getMonth() - number));
-                case 'year':
-                case 'years':
-                    return new Date(now.setFullYear(now.getFullYear() - number));
-                default:
-                    return now;
-            }
+        $("#sortTimePosted").click(function () {
+          sortTable(5, timePostedAscending);
+          timePostedAscending = !timePostedAscending;
+        });
+
+        $("#openPopupButton").click(function () {
+          $("#popup").fadeIn();
+        });
+
+        $(".close").click(function () {
+          $("#popup").fadeOut();
+        });
+
+        $("#applyFiltersButton").click(function () {
+          applyFilters();
+        });
+
+        $("#applyPopupFiltersButton").click(function () {
+          applyFilters();
+        });
+
+        $("#resetfilter").click(function () {
+          $("#searchBar").val("");
+          $("#minApplicants").val("");
+          $("#maxApplicants").val("");
+          $("#timePosted").val("");
+          $("#city").val("");
+          filterJobs("", 0, Infinity, "", "");
+        });
+
+        function applyFilters() {
+          const searchTerm = $("#searchBar").val().toLowerCase();
+          const minApplicants = parseInt($("#minApplicants").val()) || 0;
+          const maxApplicants = parseInt($("#maxApplicants").val()) || Infinity;
+          const timePosted = $("#timePosted").val().toLowerCase();
+          const city = $("#city").val().toLowerCase();
+
+          filterJobs(
+            searchTerm,
+            minApplicants,
+            maxApplicants,
+            timePosted,
+            city
+          );
         }
 
-        function sortTable(columnIndex, ascending) {
-            const jobTable = document.getElementById('jobTable');
-            const rows = Array.from(jobTable.getElementsByTagName('tr')).slice(1); // Pomijamy pierwszy wiersz nagłówka
-        
-            const sortedRows = rows.sort((a, b) => {
-                const aText = a.getElementsByTagName('td')[columnIndex]?.innerText.trim() || '';
-                const bText = b.getElementsByTagName('td')[columnIndex]?.innerText.trim() || '';
-        
-                if (columnIndex === 4) { // Applicants column
-                    const aApplicants = parseInt(aText) || 0;
-                    const bApplicants = parseInt(bText) || 0;
-                    return ascending ? aApplicants - bApplicants : bApplicants - aApplicants;
-                } else if (columnIndex === 5) { // Time Posted column
-                    const aTimePosted = parseTimePosted(aText);
-                    const bTimePosted = parseTimePosted(bText);
-        
-                    if (aTimePosted === null) return ascending ? 1 : -1;
-                    if (bTimePosted === null) return ascending ? -1 : 1;
-        
-                    return ascending ? aTimePosted - bTimePosted : bTimePosted - aTimePosted;
-                } else {
-                    return ascending ? aText.localeCompare(bText) : bText.localeCompare(aText);
+        function filterJobs(
+          searchTerm,
+          minApplicants,
+          maxApplicants,
+          timePosted,
+          city
+        ) {
+          const jobTable = document.getElementById("jobTable");
+          const rows = jobTable.getElementsByTagName("tr");
+          for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName("td");
+            let match = true;
+            for (let j = 0; j < cells.length; j++) {
+              if (cells[j]) {
+                const cellText = cells[j].textContent || cells[j].innerText;
+                if (
+                  j == 2 &&
+                  cellText.toLowerCase().indexOf(searchTerm) === -1
+                ) {
+                  // Zmiana na kolumnę "Job Title"
+                  match = false;
                 }
-            });
-            // Usuń istniejące wiersze
-            while (jobTable.rows.length > 1) {
-                jobTable.deleteRow(1);
+                if (j == 4) {
+                  const applicants = parseInt(cellText);
+                  if (
+                    (minApplicants && applicants < minApplicants) ||
+                    (maxApplicants && applicants > maxApplicants)
+                  ) {
+                    match = false;
+                  }
+                }
+                if (
+                  j == 5 &&
+                  cellText.toLowerCase().indexOf(timePosted) === -1
+                ) {
+                  match = false;
+                }
+                if (j == 3 && cellText.toLowerCase().indexOf(city) === -1) {
+                  match = false;
+                }
+              }
             }
+            rows[i].style.display = match ? "" : "none";
+          }
+        }
+      });
 
-            // Dodaj posortowane wiersze
-            sortedRows.forEach(row => jobTable.appendChild(row));
-            }
+      function parseTimePosted(text) {
+        if (!text || text.toLowerCase() === "none") {
+          return null;
+        }
+
+        const now = new Date();
+        const [value, unit, ago] = text.split(" ");
+
+        const number = parseInt(value);
+        if (isNaN(number)) {
+          return now;
+        }
+
+        switch (unit) {
+          case "day":
+          case "days":
+            return new Date(now.setDate(now.getDate() - number));
+          case "week":
+          case "weeks":
+            return new Date(now.setDate(now.getDate() - number * 7));
+          case "month":
+          case "months":
+            return new Date(now.setMonth(now.getMonth() - number));
+          case "year":
+          case "years":
+            return new Date(now.setFullYear(now.getFullYear() - number));
+          default:
+            return now;
+        }
+      }
+
+      function sortTable(columnIndex, ascending) {
+        const jobTable = document.getElementById("jobTable");
+        const rows = Array.from(jobTable.getElementsByTagName("tr")).slice(1); // Pomijamy pierwszy wiersz nagłówka
+
+        const sortedRows = rows.sort((a, b) => {
+          const aText =
+            a.getElementsByTagName("td")[columnIndex]?.innerText.trim() || "";
+          const bText =
+            b.getElementsByTagName("td")[columnIndex]?.innerText.trim() || "";
+
+          if (columnIndex === 4) {
+            // Applicants column
+            const aApplicants = parseInt(aText) || 0;
+            const bApplicants = parseInt(bText) || 0;
+            return ascending
+              ? aApplicants - bApplicants
+              : bApplicants - aApplicants;
+          } else if (columnIndex === 5) {
+            // Time Posted column
+            const aTimePosted = parseTimePosted(aText);
+            const bTimePosted = parseTimePosted(bText);
+
+            if (aTimePosted === null) return ascending ? 1 : -1;
+            if (bTimePosted === null) return ascending ? -1 : 1;
+
+            return ascending
+              ? aTimePosted - bTimePosted
+              : bTimePosted - aTimePosted;
+          } else {
+            return ascending
+              ? aText.localeCompare(bText)
+              : bText.localeCompare(aText);
+          }
+        });
+        // Usuń istniejące wiersze
+        while (jobTable.rows.length > 1) {
+          jobTable.deleteRow(1);
+        }
+
+        // Dodaj posortowane wiersze
+        sortedRows.forEach((row) => jobTable.appendChild(row));
+      }
     </script>
-</body>
+  </body>
 </html>
