@@ -1,6 +1,7 @@
 import ManageDB
 import likedinScraper
 from flask import Flask, render_template, request,jsonify, redirect, url_for
+from dictionary import city_mapping
 app = Flask(__name__)
 
 
@@ -21,9 +22,21 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def index ():
+def index():
     data = ManageDB.get_ALL_data_DB("LinkedInDB")
-    return render_template('index.html', jobListing=data)
+    job_listings = [
+        {
+            'id': job[0],
+            'company_name': job[3],
+            'job_title': job[2],
+            'city': job[4],
+            'applicants': job[6],
+            'time_posted': job[5],
+            'link': job[7]
+        }
+        for job in data
+    ]
+    return render_template('index.html', jobListing=job_listings, city_mapping=city_mapping)
 
 # @app.route('/')
 # def main_page():

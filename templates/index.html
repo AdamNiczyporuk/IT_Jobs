@@ -52,12 +52,12 @@
             <tbody >
                 {% for job in jobListing %}
                 <tr>
-                    <td id="Selected" class="checkbox-cell text-center"><input type="checkbox" class="job-checkbox" id="checkbox-{{job[0]}}"></td>
-                    <td id="Company_Name" class="text-center">{{ job[3] }}</td>
-                    <td id="Job_TitleWithLink" class="text-center auto-width"><a href="{{ job[7] }}" target="_blank">{{ job[2] }}</a></td>
-                    <td id="City" class="text-center">{{ job[4] | capitalize }}</td>
-                    <td id="Number_of_Applicants" class="text-center">{{ job[6] }}</td>
-                    <td id="Time_Posted" class="text-center">{{ job[5] }}</td>
+                    <td id="Selected" class="checkbox-cell text-center"><input type="checkbox" class="job-checkbox" id="checkbox-{{ job['id'] }}"></td>
+                    <td id="Company_Name" class="text-center">{{ job['company_name'] }}</td>
+                    <td id="Job_TitleWithLink" class="text-center auto-width"><a href="{{ job['link'] }}" target="_blank">{{ job['job_title'] }}</a></td>
+                    <td id="City" class="text-center">{{ city_mapping[job['city'] | lower] | capitalize | default(job['city'] | capitalize) }}</td>
+                    <td id="Number_of_Applicants" class="text-center">{{ job['applicants'] }}</td>
+                    <td id="Time_Posted" class="text-center">{{ job['time_posted'] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
