@@ -42,8 +42,11 @@
       <button class="btn btn-dark mr-2 btn-lg" id="collectDataButton">
         Collect Data
       </button>
-      <button class="btn btn-dark btn-lg" id="resetfilter">
+      <button class="btn btn-dark mr-2 btn-lg" id="resetfilter">
         Reset filters
+      </button>
+      <button class="btn btn-dark btn-lg" id="allJobs">
+        All jobs
       </button>
     </div>
     <div id="popup" class="popup">
@@ -191,6 +194,20 @@
           $("#timePosted").val("");
           $("#city").val("");
           filterJobs("", 0, Infinity, "", "");
+        });
+
+        $("#allJobs").click(function () {
+          $.ajax({
+            url: "/jobs",
+            method: "GET",
+            success: function (data) {
+              // Zakładam, że data zawiera HTML do wstawienia do tabeli
+              $("#jobTableBody").html(data);
+            },
+            error: function (xhr, status, error) {
+              console.error("Error fetching all jobs:", status, error);
+            }
+          });
         });
 
         function applyFilters() {
