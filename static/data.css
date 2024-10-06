@@ -14,7 +14,7 @@ th, td {
 th {
     background-color: #393f4d;
 }
-#searchBar, #minApplicants, #maxApplicants, #timePosted {
+ #minApplicants, #maxApplicants, #timePosted {
     margin-bottom: 10px;
     padding: 8px;
     width: 100%;
@@ -125,4 +125,31 @@ a {
 .job-title-column {
     width: 150px; /* Ustaw szerokość kolumny na 150 pikseli */
     white-space: nowrap; /* Zapobiega zawijaniu tekstu */
+}
+
+
+.btn-outline-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-group {
+    position: center;
+    padding: 2vh;
+    display: flex;
+
+}
+
+.input-group .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.search-icon {
+    font-size: 24px; /* Dostosuj rozmiar ikony, jeśli to konieczne */
+}
+
+.search-input {
+    padding-right: 40px; /* Dodaj odstęp na ikonę */
 }

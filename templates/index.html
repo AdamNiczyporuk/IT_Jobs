@@ -19,20 +19,38 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
   </head>
   <body>
     <div class ="m-3 mb-4">
       <h1 style="text-align: center">Job Listing</h1>
     </div>
-    <div class="d-flex justify-content-center mb-3 mt-3">
+    <!-- <div class="d-flex justify-content-center mb-3 mt-3">
       <input
         class="form-control  w-75 btn-lg "
         type="text"
         id="searchBar"
         placeholder="Search for job title..."
       />
-    </div>
-    <div class="buttons-container mb-3">
+      <button class="btn btn-outline-secondary" type="button" id="searchButton">
+        <span class="material-symbols-outlined search-icon">
+            search
+        </span>
+    </div> -->
+      <div class="row justify-content-center">
+          <div class="col-md-10">
+              <div class="input-group">
+                  <input class="form-control btn-lg" type="text" id="searchBar" placeholder="Search for job title..."/>
+                  <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                      <span class="material-symbols-outlined search-icon">
+                          search
+                      </span>
+                  </button>
+              </div>
+          </div>
+  </div>
+    <div class="buttons-container mb-2">
       <button class="btn btn-dark mr-2 btn-lg" id="applyFiltersButton">
         Search
       </button>
@@ -68,8 +86,8 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid mt-4">
-      <table class="table table-dark table-striped mt-4" id="jobTable">
+    <div class="container-fluid mt-2">
+      <table class="table table-dark table-striped " id="jobTable">
         <thead>
           <tr>
             <th class="text-center">Selected</th>
