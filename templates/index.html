@@ -12,7 +12,7 @@
     <!-- Custom CSS -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='data.css') }}"
+      href="{{ url_for('static', filename='index.css') }}"
     />
     <!-- Font Awesome -->
     <link
@@ -26,23 +26,11 @@
     <div class ="m-3 mb-4">
       <h1 style="text-align: center">Job Listing</h1>
     </div>
-    <!-- <div class="d-flex justify-content-center mb-3 mt-3">
-      <input
-        class="form-control  w-75 btn-lg "
-        type="text"
-        id="searchBar"
-        placeholder="Search for job title..."
-      />
-      <button class="btn btn-outline-secondary" type="button" id="searchButton">
-        <span class="material-symbols-outlined search-icon">
-            search
-        </span>
-    </div> -->
       <div class="row justify-content-center">
-          <div class="col-md-10">
+          <div class="col-md-10 m-2">
               <div class="input-group">
                   <input class="form-control btn-lg" type="text" id="searchBar" placeholder="Search for job title..."/>
-                  <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                  <button class="btn btn-outline-secondary" type="button" id="applyFiltersButton">
                       <span class="material-symbols-outlined search-icon">
                           search
                       </span>
@@ -51,9 +39,6 @@
           </div>
   </div>
     <div class="buttons-container mb-2">
-      <button class="btn btn-dark mr-2 btn-lg" id="applyFiltersButton">
-        Search
-      </button>
       <button class="btn btn-dark mr-2 btn-lg" id="openPopupButton">
         Filter
       </button>
