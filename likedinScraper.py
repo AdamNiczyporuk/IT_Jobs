@@ -41,7 +41,8 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
         all_offerts= likedIn_numOffert_scraper(f"https://www.linkedin.com/jobs/search?keywords={tittle}&location={location}&pageNum=0&position=1")
         print(all_offerts)
         
-    all_offerts = all_offerts.replace(',', '').replace('+', '')
+    all_offerts = all_offerts.replace(',', '')
+    all_offerts= all_offerts.replace('+', '')
     
     all_offerts =int(all_offerts)
     
@@ -141,7 +142,8 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
             job_post["num_applicatns"] = None
         
         job_list.append(job_post)
-            
+        
+    db.saveToDBLikedin(job_list,"LinkedInDB")        
     
 
 
