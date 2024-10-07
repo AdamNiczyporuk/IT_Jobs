@@ -138,7 +138,7 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
         
         job_list.append(job_post)
             
-    db.saveToDBLikedin("LinkedInDB",job_list)       
+    
 
 
     
