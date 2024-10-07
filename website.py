@@ -11,22 +11,22 @@ app = Flask(__name__)
 def main_page():
     return render_template('mainpage.html')
 
-@app.route('/jobs', methods=['GET'])
-def get_all_jobs():
-    data = ManageDB.get_ALL_data_DB("LinkedInDB")
-    job_listings = [
-        {
-            'id': job[0],
-            'company_name': job[3],
-            'job_title': job[2],
-            'city': job[4],
-            'applicants': job[6],
-            'time_posted': job[5],
-            'link': job[7]
-        }
-        for job in data
-    ]
-    return render_template('index.html', jobListing=job_listings, city_mapping=city_mapping)
+    # @app.route('/jobs', methods=['GET'])
+    # def get_all_jobs():
+    #     data = ManageDB.get_ALL_data_DB("LinkedInDB")
+    #     job_listings = [
+    #         {
+    #             'id': job[0],
+    #             'company_name': job[3],
+    #             'job_title': job[2],
+    #             'city': job[4],
+    #             'applicants': job[6],
+    #             'time_posted': job[5],
+    #             'link': job[7]
+    #         }
+    #         for job in data
+    #     ]
+    #     return render_template('index.html', jobListing=job_listings, city_mapping=city_mapping)
 
 @app.route('/jobs', methods=['GET'])
 def index():
