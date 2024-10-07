@@ -41,6 +41,8 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
         all_offerts= likedIn_numOffert_scraper(f"https://www.linkedin.com/jobs/search?keywords={tittle}&location={location}&pageNum=0&position=1")
         print(all_offerts)
         
+    all_offerts = all_offerts.replace(',', '').replace('+', '')
+    
     all_offerts =int(all_offerts)
     
     if all_offerts%25 == 0:
@@ -49,7 +51,9 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
     else:
         how_pages= all_offerts//25 +1
         print(how_pages)
- 
+    
+    if how_pages>10:
+        how_pages=10
         
     
     while num_page <= how_pages*25:
