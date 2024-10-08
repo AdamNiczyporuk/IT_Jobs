@@ -138,7 +138,7 @@ def saveToDBLikedin(data,nameDB):
         cursor = connection .cursor()
         
         
-        InserQuery = """INSERT INTO LinkedInJobs (job_id,job_title, company_name,City, time_posted, job_link,num_applicatns, formatted_dataTime) VALUES (%s,%s,%s,%s,%s, %s, %s, %s, %s)"""
+        InserQuery = """INSERT INTO LinkedInJobs (job_id,job_title, company_name,City, time_posted, job_link,num_applicatns, formatted_dataTime,type) VALUES (%s,%s,%s,%s,%s, %s, %s, %s, %s)"""
         SelectQuery="""SELECT COUNT(*) From LinkedInJobs WHERE job_id=%s"""
         deleteQuery="""DELETE FROM LinkedInJobs"""
         
@@ -161,7 +161,7 @@ def saveToDBLikedin(data,nameDB):
             result = cursor.fetchone()
             
             if result[0] == 0:
-                cursor.execute(InserQuery, (job_id,job_title, Company_name,city, time_posted, job_link,num_applicatns, formatted_dataTime))
+                cursor.execute(InserQuery, (job_id,job_title, Company_name,city, time_posted, job_link,num_applicatns, formatted_dataTime,type))
         
         connection.commit()
         
