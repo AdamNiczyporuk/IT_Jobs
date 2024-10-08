@@ -35,7 +35,7 @@ def linkedin_scraper(tittle="RPA", location="Poland"):
     Checking=0 
     time_sleep=1
     index =0 
-    type = tittle
+   
     
     all_offerts= likedIn_numOffert_scraper(f"https://www.linkedin.com/jobs/search?keywords={tittle}&location={location}&pageNum=0&position=1")
     while all_offerts is None:
