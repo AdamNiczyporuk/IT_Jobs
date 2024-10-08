@@ -11,14 +11,14 @@ def main():
     # print(scrapeData)
     # db.create_tableDBScraper("mydatabase")
     # db.saveToDBScraper(scrapeData,"mydatabase")
-    # db.create_tableDB("LinkedInDB")
+    db.create_tableDB("LinkedInDB")
     # proxy.start_tor()
     # Data = LkScrap.linkedin_scraper()
 
     # print(Data)
     # db.saveToDBLikedin(Data,"LinkedInDB")
     # print(db.get_ALL_data_DB("LinkedInDB"))
-    website.app.run(debug=True)
+    # website.app.run(debug=True)
     
 if __name__ == '__main__':
     main()
