@@ -74,9 +74,10 @@ def create_tableDBLikedIn(nameDB):
                 company_name VARCHAR(255),
                 city VARCHAR(255),
                 time_posted VARCHAR(255),
-                num_applicatns VARCHAR(255),
+                num_applicatns VARCHAR(255)
+                type VARCHAR(255),
                 job_link VARCHAR(255) ,
-                formatted_dataTime DATETIME );
+                formatted_dataTime DATETIME);
                 """
                 
         cursor.execute(createTableQuery)
